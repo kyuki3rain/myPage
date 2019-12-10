@@ -22,7 +22,9 @@ export default class Main extends React.Component {
         return (
         <Style>
             <Content></Content>
-            <Footer></Footer>
+            <Footer>
+        <div>{this.props.name}</div>
+            </Footer>
         </Style>
         );
     }
