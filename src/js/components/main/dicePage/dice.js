@@ -10,9 +10,13 @@ const Style = styled.div`
         height:${circleSize}px;
         display:flex;
         justify-content:space-between;
+        margin:10px 10px;
     }
     > div{
         display:inline-block;
+        border:${circleSize/20}px black solid;
+        box-sizing:border-box;
+        padding:${circleSize/4}px;
     }
     width:100vw;
     text-align:center;
@@ -22,41 +26,31 @@ const Circle = styled.div`
     width:${circleSize}px;
     height:${circleSize}px;
     border-radius:${circleSize/2}px;
-    border:${circleSize/20}px black solid;
+    /* border:${circleSize/20}px black solid; */
     box-sizing:border-box;
-    background-color:${(props => props.num == 1)?"black":"white"};
+    background-color:${props => props.num};
 `;
 
 export default class Dice extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            a:((props.num%8)/4 + props.num%2 > 0)?1:0,
-            b:((props.num%8)/4 + (props.num%4)/2 > 0)?1:0,
-            c:((props.num%8)/4 + props.num%2 == 2)?1:0,
-            d:(props.num%2 == 0)?1:0
-        };
     }
     render() {
-        console.log((this.props.num/4 + this.props.num%2 >= 1));
         return (
         <Style>
             <div>
-                a:{((this.props.num%8)/4+this.props.num%2>= 1)?1:0}
-            </div>
-            <div>
                 <div>
-                    <Circle num={((this.props.num%8)/4 + this.props.num%2>= 1)?1:0}></Circle>
-                    <Circle num={this.state.c}></Circle>
+                    <Circle num={((this.props.num%8)/4 + this.props.num%2 >= 1)?"black":"white"}></Circle>
+                    <Circle num={((this.props.num%8)/4 + (this.props.num%4)/2 >= 1)?"black":"white"}></Circle>
                 </div>
                 <div>
-                    <Circle num={this.state.b}></Circle>
-                    <Circle num={this.state.d}></Circle>
-                    <Circle num={this.state.b}></Circle>
+                    <Circle num={((this.props.num%8)/4 + this.props.num%2 >= 2)?"black":"white"}></Circle>
+                    <Circle num={(this.props.num%2 == 0)?(this.props.num%8==0)?"red":"black":"white"}></Circle>
+                    <Circle num={((this.props.num%8)/4 + this.props.num%2 >= 2)?"black":"white"}></Circle>
                 </div>
                 <div>
-                    <Circle num={this.state.c}></Circle>
-                    <Circle num={this.state.a}></Circle>
+                    <Circle num={((this.props.num%8)/4 + (this.props.num%4)/2 >= 1)?"black":"white"}></Circle>
+                    <Circle num={((this.props.num%8)/4 + this.props.num%2 >= 1)?"black":"white"}></Circle>
                 </div>
             </div>
         </Style>

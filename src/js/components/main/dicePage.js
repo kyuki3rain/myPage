@@ -8,8 +8,10 @@ const Style = styled.div`
     text-align:center;
 `;
 
-const In = styled.input`
-    
+const Bt = styled.button`
+    width:30px;
+    height:30px;
+    margin:0 10px;
 `;
 
 export default class DicePage extends React.Component {
@@ -19,12 +21,15 @@ export default class DicePage extends React.Component {
     }
     handleChange(e){
         this.setState({value:e.target.value});
-        console.log(e.target.value-1);
     }
     render() {
+        const but=[];
+        for(let i=0;i<6;i++){
+            but.push(<Bt onClick={this.handleChange.bind(this)} value={i+1}>{i+1}</Bt>);
+        }
         return (
         <Style>
-            <In value={this.state.value} onChange={this.handleChange.bind(this)}></In>
+            {but}
             <Dice num={this.state.value-1}></Dice>
         </Style>
         );
