@@ -5,7 +5,8 @@ import {Route} from "react-router-dom";
 import Home from "./home";
 import GritchPage from "./gritchPage";
 import DicePage from "./dicePage";
-import cellPage from "./cellPage";
+import CellPage from "./cellPage";
+import Maintain from "./maintain";
 
 
 const Style = styled.div`
@@ -28,7 +29,7 @@ export default class Content extends React.Component {
                 <Route path="/content0" component={GritchPage}></Route>
                 <Route path="/content1" component={Bg}></Route>
                 <Route path="/content2" component={DicePage}></Route>
-                <Route path="/content3" component={cellPage}></Route>
+                <Route path="/content3" component={CellPage}></Route>
             </Style>
         );
     }
