@@ -29,7 +29,7 @@ class headerMenu extends React.Component {
             <MenuList onClick={this.navigate.bind(this,"content0")}>Content0</MenuList>
             <MenuList onClick={this.navigate.bind(this,"content1")}>Content1</MenuList>
             <MenuList onClick={this.navigate.bind(this,"content2")}>Content2</MenuList>
-            {/* <MenuList onClick={this.navigate.bind(this,"content3")}>Content3</MenuList> */}
+            <MenuList onClick={this.navigate.bind(this,"content3")}>Content3</MenuList>
         </Style>
         );
     }
