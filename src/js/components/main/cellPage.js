@@ -172,14 +172,17 @@ export default class cellPage extends React.Component {
         this.setState({array:nextP});
         console.log(nextP);
     }
-    changeState(e){
-        let obj  = {};
-        obj[e.target.id]=e.target.value;
-        this.setState(obj);
+    changeStage(row,col,scale){
+        this.setState({row:row,col:col,scale:scale});
     }
     changeCell(i,j){
         let p = this.state.array;
-        p[i][j] = (p[i][j]+1)%2;
+        if(Number(i)<0&&Number(j)<0){
+            for(let k=0;k<p.length;k++)for(let s=0;s<p[0].length;s++)p[k][s]=0;
+        }
+        else{
+            p[i][j] = (p[i][j]+1)%2;
+        }
         this.setState({array:p});
     }
     render() {
@@ -191,7 +194,7 @@ export default class cellPage extends React.Component {
         boxcol.push(<Pad key={-2}></Pad>)
         return (
             <div>
-                <Menu startGame={this.startGame.bind(this)} row={this.state.row} col={this.state.col} scale={this.state.scale} changeState={this.changeState.bind(this)}></Menu>
+                <Menu changeCell={this.changeCell.bind(this)} startGame={this.startGame.bind(this)} row={this.state.row} col={this.state.col} scale={this.state.scale} changeStage={this.changeStage.bind(this)}></Menu>
                 <Style>
                     <Sc scale={this.state.scale}>
                         {boxcol}

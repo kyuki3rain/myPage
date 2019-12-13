@@ -17,17 +17,13 @@ const Style = styled.div`
 export default class Layout extends React.Component {
     constructor(){
         super();
-        this.name = "Yuki";
-        this.state = {name:"Minami"};
-        setTimeout(()=>{this.name="Minami";},1000);
-        setTimeout(()=>{this.setState({name:"Yuki"});},3000);
     }
     render() {
         return (
             <Style>
                 <Router>
                     <Header></Header>
-                    <Main name={this.name} stateName={this.state.name}></Main>
+                    <Main></Main>
                 </Router>
             </Style>
         );
