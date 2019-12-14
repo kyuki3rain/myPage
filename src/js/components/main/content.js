@@ -4,7 +4,7 @@ import {Route} from "react-router-dom";
 
 import Home from "./home";
 import GritchPage from "./gritchPage";
-import DicePage from "./dicePage";
+import DicePage from "./nicePage";
 import CellPage from "./cellPage";
 import Maintain from "./maintain";
 
@@ -12,12 +12,7 @@ import Maintain from "./maintain";
 const Style = styled.div`
     font-size:6vh;
     width:100vw;
-`;
-
-const Bg = styled.div`
-    background-color:midnightblue;
-    height:100vh;
-    width:100vw;
+    /* height:80vh; */
 `;
 
 
@@ -26,8 +21,8 @@ export default class Content extends React.Component {
         return (
             <Style>
                 <Route exact path="/" component={Home}></Route>
-                <Route path="/content0" component={GritchPage}></Route>
-                <Route path="/content2" component={DicePage}></Route>
+                <Route path="/glitch" component={GritchPage}></Route>
+                <Route path="/nice" component={DicePage}></Route>
                 <Route path="/cell" component={CellPage}></Route>
             </Style>
         );

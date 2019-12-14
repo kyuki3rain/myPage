@@ -26,9 +26,9 @@ class headerMenu extends React.Component {
     render() {
         return (
         <Style>
-            <MenuList onClick={this.navigate.bind(this,"content0")}>Content0</MenuList>
+            <MenuList onClick={this.navigate.bind(this,"nice")}>Nice</MenuList>
             <MenuList onClick={this.navigate.bind(this,"cell")}>Life Game</MenuList>
-            <MenuList onClick={this.navigate.bind(this,"content2")}>Nice</MenuList>
+            <MenuList onClick={this.navigate.bind(this,"glitch")}>glitch</MenuList>
         </Style>
         );
     }
