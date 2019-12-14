@@ -5,7 +5,7 @@ import Gritch from "../gritch";
 
 const Style = styled.div`
     width:100%;
-    height:100%;
+    height:80vh;
     text-align:center;
     padding:35vh 0;
     box-sizing:border-box;

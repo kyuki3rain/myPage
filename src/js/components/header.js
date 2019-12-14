@@ -6,7 +6,8 @@ import Menu from "./header/headerMenu";
 
 const Style = styled.div`
     position:fixed;
-
+    
+    display:float;
     width:100vw;
     height:8vh;
     background-color:black;

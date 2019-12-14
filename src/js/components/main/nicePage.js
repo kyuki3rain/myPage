@@ -10,8 +10,8 @@ const Style = styled.div`
     align-items: center;
     user-select:none;
     @media screen and (orientation: landscape) {
-        flex-direction:column;
-        height:100vh;
+        flex-direction:row;
+        height:100%;
         width:56vw;
         margin:0 22vw;
     }

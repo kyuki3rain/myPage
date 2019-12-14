@@ -21,6 +21,8 @@ const Sc = styled.div`
 
 const Pad = styled.div`height:30px;`;
 
+const Div = styled.div`height:100%;`;
+
 let dx=[0,1,1,1,0,-1,-1,-1];
 let dy=[1,1,0,-1,-1,1,0,-1];
 let dx2=[0,1,2,2,2,2,2,1,0,-1,-2,-2,-2,-2,-2,-1];
@@ -193,14 +195,14 @@ export default class cellPage extends React.Component {
         }
         boxcol.push(<Pad key={-2}></Pad>)
         return (
-            <div>
+            <Div>
                 <Menu changeCell={this.changeCell.bind(this)} startGame={this.startGame.bind(this)} row={this.state.row} col={this.state.col} scale={this.state.scale} changeStage={this.changeStage.bind(this)}></Menu>
                 <Style>
                     <Sc scale={this.state.scale}>
                         {boxcol}
                     </Sc>
                 </Style>
-            </div>
+            </Div>
         );
     }
 }

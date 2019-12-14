@@ -8,10 +8,11 @@ const Style = styled.div`
     align-items:top;
     width:80vw;
     margin:0 auto;
+    height:100%;
 `;
 
 const MenuList = styled.li`
-    font-size:3vmax;
+    font-size:2vmax;
     box-sizing:border-box;
     display:inline-block;
 
@@ -21,7 +22,7 @@ const MenuList = styled.li`
     }
 `;
 
-const ListParent = styled.div`
+const ListParent = styled.ul`
     display:flex;
     flex-direction:column;
     margin:0 auto 0 0;

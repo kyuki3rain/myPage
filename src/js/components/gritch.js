@@ -121,10 +121,14 @@ export default class Gritch extends React.Component {
     constructor(){
         super();
         this.state = {color:true};
-        setInterval(()=>{
+        this.code = setInterval(()=>{
             this.setState({color:false});
             this.setState({color:true});
+            console.log("ok");
         },3000);
+    }
+    componentWillUnmount(){
+        clearInterval(this.code);
     }
     render() {
         return (

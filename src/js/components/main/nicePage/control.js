@@ -25,6 +25,13 @@ const But = styled.div`
     line-height:6vmax;
 `;
 
+const CanBut = styled(But)`
+    :hover{
+        background-color:black;
+        color:white;
+    }
+`;
+
 const arrow = [
    "↖","↑","↗",
    "←","・","→",
@@ -38,7 +45,7 @@ export default class Control extends React.Component {
             let but = [];
             for(let j=0;j<3;j++){
                 if(this.props.canPush[i*3+j]){
-                    but.push(<But onClick={this.props.controler} key={i*3+j} id={i*3+j}>{arrow[i*3+j]}</But>);
+                    but.push(<CanBut onClick={this.props.controler} key={i*3+j} id={i*3+j}>{arrow[i*3+j]}</CanBut>);
                 }
                 else{
                     but.push(<But key={i*3+j}></But>);

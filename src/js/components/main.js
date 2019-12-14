@@ -6,13 +6,14 @@ import Content from "./main/content";
 const Style = styled.div`
     padding:10vh 0 0;
     width:100vw;
-    height:100vh;
+    height:90vh;
     font-size:4vh;
+    padding:0;
 `;
 
 const Footer = styled.div`
     width:100vw;
-    height:10vh;
+    height:8vh;
     background-color:black;
     color:white;
 `;

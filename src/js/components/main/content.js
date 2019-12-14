@@ -12,7 +12,9 @@ import Maintain from "./maintain";
 const Style = styled.div`
     font-size:6vh;
     width:100vw;
-    /* height:80vh; */
+    box-sizing:border-box;
+    padding:10vh 0 0;
+    height:92vh;
 `;
 
 

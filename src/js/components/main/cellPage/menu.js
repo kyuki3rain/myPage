@@ -23,7 +23,7 @@ const Button = styled.button`
 export default class Menu extends React.Component {
     constructor(props){
         super(props);
-        this.state={code:0,row:50,col:50,scale:0.5};
+        this.state={code:0,row:50,col:30,scale:0.5};
     }
     loop(){
         if(this.state.code !== 0)clearInterval(this.state.code);
