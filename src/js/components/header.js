@@ -31,7 +31,7 @@ class Header extends React.Component {
     render() {
         return (
         <Style>
-            <Home onClick={this.navigate.bind(this,"/")}>Snow Rabbit's Laboratory</Home>
+            <Home onClick={this.navigate.bind(this,"/")}>Home</Home>
             <Menu></Menu>
         </Style>
         );

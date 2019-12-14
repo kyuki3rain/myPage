@@ -43,9 +43,9 @@ class Home extends React.Component {
             <div>ページ一覧</div>
             <Dive>
                 <ListParent>
-                    <MenuList onClick={this.navigate.bind(this,"nice")}>Nice</MenuList>
+                    <MenuList onClick={this.navigate.bind(this,"game1")}>Game1</MenuList>
                     <MenuList onClick={this.navigate.bind(this,"cell")}>Life Game</MenuList>
-                    <MenuList onClick={this.navigate.bind(this,"glitch")}>glitch</MenuList>
+                    {/* <MenuList onClick={this.navigate.bind(this,"glitch")}>glitch</MenuList> */}
                 </ListParent>
             </Dive>
         </Style>

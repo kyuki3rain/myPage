@@ -24,7 +24,7 @@ export default class Content extends React.Component {
             <Style>
                 <Route exact path="/" component={Home}></Route>
                 <Route path="/glitch" component={GritchPage}></Route>
-                <Route path="/nice" component={DicePage}></Route>
+                <Route path="/game1" component={DicePage}></Route>
                 <Route path="/cell" component={CellPage}></Route>
             </Style>
         );
