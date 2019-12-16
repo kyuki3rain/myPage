@@ -54,6 +54,8 @@ const GritchKeyGreen = keyframes`
 `;
 
 const Style = styled.div`
+    margin:0 auto;
+
     .tveffect {
             position:relative;
             font-size:calc( ${props => props.fontSize} * 0.6);
