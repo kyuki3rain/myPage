@@ -23,8 +23,6 @@ const MenuList = styled.li`
 `;
 
 const ListParent = styled.ul`
-    /* display:flex; */
-    /* flex-direction:column; */
     margin:0 auto 0 0;
     list-style: disc;
 `;
@@ -50,7 +48,7 @@ class Home extends React.Component {
             <Dive>
                 <ListParent>
                     <MenuList onClick={this.navigate.bind(this,"game1")}>Game1</MenuList>
-                    <Text>Web謎もどきです。スマホでもできます。</Text>
+                    <Text>Web謎もどきです。スマホでもできます。「Clear!」がでたらクリアです。</Text>
                     <MenuList onClick={this.navigate.bind(this,"cell")}>Life Game</MenuList>
                     <Text>ライフゲームができます。ボタンはいろいろ増やす予定。スマホだと見ずらい。</Text>
                     {/* <MenuList onClick={this.navigate.bind(this,"glitch")}>glitch</MenuList> */}
