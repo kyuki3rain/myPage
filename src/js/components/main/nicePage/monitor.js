@@ -39,7 +39,11 @@ let text = [
     [
     "**thae",
     "*****i",
-    "*s*ted"]
+    "*s*ted"],
+    [
+    "Clear!",
+    "Wrong!"
+    ]
 ];
 let map = [
     1,0,3,
@@ -50,19 +54,20 @@ let map = [
 export default class Monitor extends React.Component {
     constructor(props){
         super(props);
+        this.state={value:"",ans:2};
     }
     color(place,i){
         if(map[place]===1&&(i%8)/4+i%2>=1)return "black";
         if(map[place]===2&&(i%8)/4+i%2>=2)return "black";
         if(map[place]===3&&(i%8)/4+(i%4)/2>=1)return "black";
-        if(map[place]===4&&i%2==0)if(i%8==0)return "red";else return "black";
+        if(map[place]===4&&i%2==0)if(i%6==0)return "red";else return "black";
         else return "white";
     }
     render() {
         return (
         <Style color={this.color(this.props.place[0]+this.props.place[1]*3,this.props.turn)}>
-            <Text>{text[this.props.place[0]][this.props.place[1]]}</Text>
-            {(this.props.turn==0&&this.props.place[0]===1&&this.props.place[1]===1)?<Answer></Answer>:""}
+            <Text>{(this.props.ans==2||(this.props.place[0]!=1&&this.props.place[1]!=1))?text[this.props.place[0]][this.props.place[1]]:text[3][this.props.ans]}</Text>
+            {(this.props.turn==0&&this.props.place[0]===1&&this.props.place[1]===1)?<Answer value={this.props.value} onChange={this.props.valueChange}></Answer>:""}
         </Style>
         );
     }
