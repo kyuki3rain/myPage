@@ -9,7 +9,7 @@ const Style = styled.div`
         font-size:2vh;
     }
     > div > div{
-        margin:0 0 0 1vw;
+        margin:0 0 2vh 2vh;
     }
     > div *{
         display:inline-block;
@@ -17,7 +17,16 @@ const Style = styled.div`
 `;
 
 const Button = styled.button`
-    
+    width:6vh;
+    height:3vh;
+    font-size:2vh;
+    margin:0 0 0 1vh;
+`;
+
+const Text = styled.div`
+    width:6vh;
+    height:3vh;
+    margin:0 1vh 0 0;
 `;
 
 export default class Menu extends React.Component {
@@ -51,12 +60,18 @@ export default class Menu extends React.Component {
         return (
             <Style>
                 <div>
-                    <div>row:</div>
-                    <input value={this.state.row} id={"row"} onChange={this.changeState.bind(this)}></input>
-                    <div>col:</div>
-                    <input value={this.state.col} id={"col"} onChange={this.changeState.bind(this)}></input>
-                    <div>scale:</div>
-                    <input value={this.state.scale} id={"scale"} onChange={this.changeState.bind(this)}></input>
+                    <div>
+                        <Text>row:</Text>
+                        <input value={this.state.row} id={"row"} onChange={this.changeState.bind(this)}></input>
+                    </div>
+                    <div>
+                        <Text>col:</Text>
+                        <input value={this.state.col} id={"col"} onChange={this.changeState.bind(this)}></input>
+                    </div>
+                    <div>
+                        <Text>scale:</Text>
+                        <input value={this.state.scale} id={"scale"} onChange={this.changeState.bind(this)}></input>
+                    </div>
                     <Button onClick={this.changeSt.bind(this)}>更新</Button>
                 </div>
                 <div>

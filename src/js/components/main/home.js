@@ -12,7 +12,7 @@ const Style = styled.div`
 `;
 
 const MenuList = styled.li`
-    font-size:2vmax;
+    font-size:5vh;
     box-sizing:border-box;
     /* display:inline-block; */
 
