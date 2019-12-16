@@ -25,6 +25,8 @@ const Answer = styled.input`
     width:20vmax;
     height:6vmax;
     margin:0 auto;
+    font-size:4vmax;
+    text-align:center;
 `;
 
 let text = [
