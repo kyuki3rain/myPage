@@ -14,7 +14,7 @@ const Style = styled.div`
 const MenuList = styled.li`
     font-size:2vmax;
     box-sizing:border-box;
-    display:inline-block;
+    /* display:inline-block; */
 
     :hover{
         color:blue;
@@ -23,14 +23,20 @@ const MenuList = styled.li`
 `;
 
 const ListParent = styled.ul`
-    display:flex;
-    flex-direction:column;
+    /* display:flex; */
+    /* flex-direction:column; */
     margin:0 auto 0 0;
     list-style: disc;
 `;
 
 const Dive = styled.div`
     display:flex;
+    margin:3vh 0 0;
+`;
+
+const Text = styled.div`
+    font-size:3vh;
+    margin:0 0 5vh;
 `;
 
 class Home extends React.Component {
@@ -44,9 +50,9 @@ class Home extends React.Component {
             <Dive>
                 <ListParent>
                     <MenuList onClick={this.navigate.bind(this,"game1")}>Game1</MenuList>
-                    <div>Web謎もどきです。スマホでもできます。</div>
+                    <Text>Web謎もどきです。スマホでもできます。</Text>
                     <MenuList onClick={this.navigate.bind(this,"cell")}>Life Game</MenuList>
-                    <div>ライフゲームができます。ボタンはいろいろ増やす予定。スマホだと見ずらい。</div>
+                    <Text>ライフゲームができます。ボタンはいろいろ増やす予定。スマホだと見ずらい。</Text>
                     {/* <MenuList onClick={this.navigate.bind(this,"glitch")}>glitch</MenuList> */}
                 </ListParent>
             </Dive>
