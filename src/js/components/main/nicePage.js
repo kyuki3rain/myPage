@@ -85,12 +85,11 @@ export default class DicePage extends React.Component {
     }
     valueChange(e){
         this.setState({value:e.target.value});
-        if(e.target.value == 6){
-            this.setState({ans:0});
-        }
-        else{
-            this.setState({ans:1});
-        }
+        if(e.target.value == 6 
+        || e.target.value == "six" 
+        || e.target.value == "６"
+        ) this.setState({ans:0});
+        else this.setState({ans:1});
     }
     render() {
         return (
