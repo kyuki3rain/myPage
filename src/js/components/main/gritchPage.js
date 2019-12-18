@@ -6,7 +6,6 @@ const Style = styled.div`
     width:100%;
     height:80vh;
     text-align:center;
-    padding:35vh 0;
     box-sizing:border-box;
     position:relative;
 `;
@@ -58,8 +57,8 @@ export default class gritchPage extends React.Component {
         let animate=[],i=0;
         this.state = {ani:[]};
             this.code = setInterval(()=>{
-                if(i===7){
-                    let glitch = <Gritch width={"10vw"} height={"4vh"} text={"Hello World!"}></Gritch>;
+                if(i===6){
+                    let glitch = <Gritch width={"100vw"} height={"100vh"} text={"Hello!"}></Gritch>;
                     this.setState({ani:glitch});
                     clearInterval(this.code);
                 }
