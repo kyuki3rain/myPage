@@ -27,7 +27,12 @@ module.exports = {
       historyApiFallback: true,
       contentBase: 'www',
       port: 4000,
-      inline: true
+      inline: true,
+      proxy:{
+        '/':{
+          target: "https://kyuki3rain,com",
+        }
+      }
     },
     output: {
       path: __dirname + "/src/",
