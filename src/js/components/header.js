@@ -10,7 +10,7 @@ const Style = styled.div`
     display:float;
     width:100vw;
     height:8vh;
-    background-color:black;
+    background-color:transparent;
     color:white;
     z-index:100;
     display:flex;

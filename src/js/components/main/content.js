@@ -4,8 +4,8 @@ import {Route} from "react-router-dom";
 
 import Home from "./home";
 import GritchPage from "./gritchPage";
-import DicePage from "./nicePage";
-import CellPage from "./cellPage";
+import DicePage from "./nicePage/nicePage";
+import CellPage from "./cellPage/cellPage";
 import Maintain from "./maintain";
 
 
@@ -14,7 +14,7 @@ const Style = styled.div`
     width:100vw;
     box-sizing:border-box;
     padding:10vh 0 0;
-    height:92vh;
+    height:95%;
 `;
 
 

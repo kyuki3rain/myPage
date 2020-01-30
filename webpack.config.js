@@ -15,7 +15,13 @@ module.exports = {
             presets: ['@babel/preset-react', '@babel/preset-env']
           }
         }]
-      }]
+      },
+      {
+        // 追記
+        test: /\.(jpg|png)$/,
+        loaders: 'url-loader'
+      },
+    ]
     },
     devServer: {
       historyApiFallback: true,

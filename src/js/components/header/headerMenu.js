@@ -16,6 +16,7 @@ const MenuList = styled.div`
 
     :hover{
         border-bottom:0.2vh white solid;
+        /* transition:border 500ms 0s ease; */
     }
 `;
 

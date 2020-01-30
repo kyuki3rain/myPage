@@ -4,17 +4,17 @@ import styled from "styled-components";
 import Content from "./main/content";
 
 const Style = styled.div`
-    padding:10vh 0 0;
+    /* padding:10vh 0 0; */
     width:100vw;
-    height:90vh;
+    height:100vh;
     font-size:4vh;
     padding:0;
 `;
 
 const Footer = styled.div`
     width:100vw;
-    height:8vh;
-    background-color:black;
+    height:5%;
+    background-color:transparent;
     color:white;
 `;
 

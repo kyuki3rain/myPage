@@ -13,6 +13,7 @@ const Style = styled.div`
 
 const MenuList = styled.li`
     font-size:5vh;
+    color:white;
     box-sizing:border-box;
     /* display:inline-block; */
 
@@ -35,6 +36,7 @@ const Dive = styled.div`
 const Text = styled.div`
     font-size:3vh;
     margin:0 0 5vh;
+    color:white;
 `;
 
 class Home extends React.Component {
@@ -44,7 +46,7 @@ class Home extends React.Component {
     render() {
         return (
         <Style>
-            <div>ページ一覧</div>
+            <div style={{color:"white"}}>ページ一覧</div>
             <Dive>
                 <ListParent>
                     <MenuList onClick={this.navigate.bind(this,"game1")}>Game1</MenuList>

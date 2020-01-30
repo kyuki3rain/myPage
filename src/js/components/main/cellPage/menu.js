@@ -5,6 +5,8 @@ const Style = styled.div`
     display:flex;
     flex-direction:column;
     font-size:2vh;
+    width:90%;
+    margin:0 auto;
     input{
         font-size:2vh;
     }
@@ -17,16 +19,17 @@ const Style = styled.div`
 `;
 
 const Button = styled.button`
-    width:6vh;
+    width:8vh;
     height:3vh;
-    font-size:2vh;
-    margin:0 0 0 1vh;
+    font-size:1.8vh;
+    margin:0 0 0 3vh;
 `;
 
 const Text = styled.div`
     width:6vh;
     height:3vh;
     margin:0 1vh 0 0;
+    color:white;
 `;
 
 export default class Menu extends React.Component {
