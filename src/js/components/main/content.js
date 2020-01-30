@@ -4,8 +4,8 @@ import {Route} from "react-router-dom";
 
 import Home from "./home";
 import GritchPage from "./gritchPage";
-import DicePage from "./nicePage/nicePage";
-import CellPage from "./cellPage/cellPage";
+import DicePage from "./nicePage/NicePage";
+import CellPage from "./cellPage/CellPage";
 import Maintain from "./maintain";
 
 
