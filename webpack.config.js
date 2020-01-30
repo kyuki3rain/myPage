@@ -30,7 +30,7 @@ module.exports = {
       inline: true,
       proxy:{
         '/':{
-          target: "https://kyuki3rain,com",
+          target: "https://kyuki3rain.com",
         }
       }
     },
