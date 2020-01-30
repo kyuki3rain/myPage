@@ -28,11 +28,11 @@ module.exports = {
       contentBase: 'www',
       port: 4000,
       inline: true,
-      proxy:{
-        '/':{
-          target: "https://kyuki3rain.com",
-        }
-      }
+      // proxy:{
+      //   '/':{
+      //     target: "https://kyuki3rain.com",
+      //   }
+      // }
     },
     output: {
       path: __dirname + "/src/",
