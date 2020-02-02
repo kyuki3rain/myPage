@@ -13,9 +13,10 @@ const MenuList = styled.div`
     line-height:3vh;
     margin:0 1vw;
     box-sizing:border-box;
+    /* color:#112d4e; */
 
     :hover{
-        border-bottom:0.2vh white solid;
+        border-bottom:0.2vh #112d4e solid;
         /* transition:border 500ms 0s ease; */
     }
 `;

@@ -12,7 +12,8 @@ const Style = styled.div`
     width:100vw;
     top:0;
     left:0;
-    background:url(${bg}) no-repeat;
+    /* background:url(${bg}) no-repeat; */
+    background-color:#dbe2ef;
     background-size:100%;
 `;
 

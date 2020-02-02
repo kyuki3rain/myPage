@@ -18,17 +18,18 @@ const But = styled.div`
     width:6vmax;
     height:6vmax;
     margin:0.5vmax;
-    border:0.2vmax black solid;
+    border:0.2vmax #112d4e solid;
     box-sizing: border-box;
     font-size:4vmax;
     text-align:center;
     line-height:6vmax;
+    color:#112d4e;
 `;
 
 const CanBut = styled(But)`
     :hover{
-        background-color:black;
-        color:white;
+        background-color:#112d4e;
+        color:#f9f7f7;
     }
 `;
 

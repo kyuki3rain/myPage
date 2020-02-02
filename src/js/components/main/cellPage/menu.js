@@ -29,7 +29,7 @@ const Text = styled.div`
     width:6vh;
     height:3vh;
     margin:0 1vh 0 0;
-    color:white;
+    /* color:white; */
 `;
 
 export default class Menu extends React.Component {
@@ -61,6 +61,7 @@ export default class Menu extends React.Component {
     }
     componentWillUnmount(){
         this.stopLoop();
+        this.reset();
     }
     render() {
         return (

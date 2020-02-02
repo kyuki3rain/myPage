@@ -14,7 +14,7 @@ const Style = styled.div`
 `;
 
 const Text = styled.div`
-    color:white;
+    color:#112d4e;
     font-size:2.4vw;
     margin:0vw 0;
     text-align:center;

@@ -21,13 +21,18 @@ const Style = styled.div`
     padding:4vw 0;
     box-sizing:border-box;
     display:${props => props.f};
+    padding:3vw 0 5vw;
 `;
 
-const Button = styled.button`
-    width:10vw;
+const Button = styled.div`
+    width:20vw;
     height:4vw;
-    font-size:2.4vw;
-    margin:2.4vw 1.5vw;
+    font-size:3vw;
+    margin:2vw auto;
+    box-sizing:border-box;
+    :hover{
+        border-bottom:0.2vw white solid;
+    }
 `;
 
 export const minoForm = [
@@ -394,9 +399,8 @@ class Container extends React.Component {
         // const {gameSpeed,gamePlay,intervalId,makeGame,resetGame,initialize,setIntervalId,minoNum,waitTime,wait,blockChange,blockRotateChange} = this.props;
         return (
         <Style f={(this.props.gamePlay)?"none":"block"}>
-            <div>開始しますか？</div>
-            <Button onClick={this.startGame.bind(this)}>restart</Button>
-            <Button onClick={this.stopGame.bind(this)}>resume</Button>
+            <Button onClick={this.startGame.bind(this)}>最初から</Button>
+            <Button onClick={this.stopGame.bind(this)}>途中から</Button>
         </Style>
         );
     }

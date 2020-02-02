@@ -11,7 +11,7 @@ const Style = styled.div`
     width:100vw;
     height:8vh;
     background-color:transparent;
-    color:white;
+    color:#112d4e;
     z-index:100;
     display:flex;
     justify-content:space-between;

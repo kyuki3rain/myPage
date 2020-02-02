@@ -103,6 +103,6 @@ class Container extends React.Component {
 }
 
 export default connect(
-    state => ({ intervalId:state.intervalId,mino:state.mino,blockBox:state.blockBox }),
+    state => ({ intervalId:state.intervalId,mino:state.mino,blockBox:state.blockBox,advanceId:state.advanceId }),
     { setIntervalId,resetGame,setAdvanceId }
 )(Container);

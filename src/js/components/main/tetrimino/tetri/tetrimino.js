@@ -36,7 +36,7 @@ const Notes = styled.div`
 `;
 
 const Text = styled.div`
-    color:white;
+    color:#112d4e;
     font-size:2.4vw;
     margin:1vw 0;
 `;
@@ -56,6 +56,7 @@ class Container extends React.Component {
             <Notes>
                 <Text>D:右回転</Text>
                 <Text>E:ホールド</Text>
+                <Text>Esc:ポーズ</Text>
             </Notes>
             <Left>
                 <Hold></Hold>
