@@ -6,7 +6,8 @@ import { leftPosition,rightPosition,makeGame,
     blockChange,blockRotateChange,mapUpdate,
     addMino,updatePreBlock,pullMino,setPosition,
     advancePosition,updateMino,resetPreBlock,
-    setNextBlock,setAdvanceId,setHoldBlock } from "../actions";
+    setNextBlock,setAdvanceId,setHoldBlock,addScore,
+    timeUpdate,flameUpdate } from "../actions";
 
 const Style = styled.div`
     width:30vw;
@@ -103,6 +104,7 @@ class Container extends React.Component {
         super(props);
         this.count = 0;
         this.holdCount = 0;
+        this.flameCount = 0;
     }
     blockRotate(){
         let nextBlock=new Array(4);
@@ -175,20 +177,20 @@ class Container extends React.Component {
         let map = JSON.parse(JSON.stringify(this.props.map));
         let zero = new Array(10).fill(0);
         if(map[0][4]!=0&&map[0][5]!=0){
-            this.props.resetGame();
-            clearInterval(this.props.intervalId);
-            this.props.setIntervalId(0);
-            console.log("clear "+ this.props.intervalId);
+            this.pauseGame();
         }
         else{
+            let point = 0;
             for(let i=0;i<20;i++){
                 let f=0;
                 for(let j=0;j<10;j++){
                     if(map[i][j]==0){f=1;break;}
                 }
                 if(f==0){
+                    point++;
                     map.splice(i,1);
                     map.unshift(zero);
+                    this.props.addScore(point);
                 }
             }
             this.props.mapUpdate(map);
@@ -274,6 +276,14 @@ class Container extends React.Component {
                 this.count = 0;
             }
         }
+        this.flameCount++;
+        
+    }
+    time(){
+        this.props.timeUpdate([this.props.time[0]+Math.floor((this.props.time[1]+1)/60),(this.props.time[1]+1)%60]);
+        this.props.flameUpdate(this.flameCount);
+        this.flameCount=0;
+        console.log(this.props.time[1]);
     }
     startGame(){
         this.props.initialize();
@@ -281,30 +291,29 @@ class Container extends React.Component {
         this.blockSet();
         this.nextSet();
         let localIntervalId = setInterval(this.Loop.bind(this), 1000/this.props.gameSpeed);
-        // let localAdvanceId = setInterval(this.advanceMino.bind(this), 1000/this.props.advanceSpeed);
+        let localAdvanceId = setInterval(this.time.bind(this), 1000);
         this.props.setIntervalId(localIntervalId);
-        // this.props.setAdvanceId(localAdvanceId);
+        this.props.setAdvanceId(localAdvanceId);
         console.log("start "+ localIntervalId);
-        // console.log("start "+ localAdvanceId);
+        console.log("start "+ localAdvanceId);
     }
     stopGame(){
-        // this.props.initialize();
         this.props.makeGame();
         let localIntervalId = setInterval(this.Loop.bind(this), 1000/this.props.gameSpeed);
-        // let localAdvanceId = setInterval(this.advanceMino.bind(this), 1000/this.props.advanceSpeed);
+        let localAdvanceId = setInterval(this.time.bind(this), 1000);
         this.props.setIntervalId(localIntervalId);
-        // this.props.setAdvanceId(localAdvanceId);
+        this.props.setAdvanceId(localAdvanceId);
         console.log("start "+ localIntervalId);
-        // console.log("start "+ localAdvanceId);
+        console.log("start "+ localAdvanceId);
     }
     pauseGame(){
         this.props.resetGame();
         clearInterval(this.props.intervalId);
-        // clearInterval(this.props.advanceId);
-        this.props.setIntervalId(0);
-        // this.props.setAdvanceId(0);
+        clearInterval(this.props.advanceId);
         console.log("clear "+ this.props.intervalId);
-        // console.log("clear "+ localAdvanceId);
+        console.log("clear "+ this.props.advanceId);
+        this.props.setIntervalId(0);
+        this.props.setAdvanceId(0);
     }
     keyCheck(e){
         if(e.keyCode == 27){
@@ -400,5 +409,5 @@ export default connect(
         blockRotateChange,mapUpdate,updatePreBlock,
         addMino,pullMino,setPosition,advancePosition,
         updateMino,resetPreBlock,setNextBlock,setAdvanceId,
-        setHoldBlock }
+        setHoldBlock,addScore,timeUpdate,flameUpdate }
 )(Container);

@@ -45,7 +45,9 @@ class Container extends React.Component {
     componentWillUnmount(){
         this.props.initialize();
         clearInterval(this.props.intervalId);
+        clearInterval(this.props.advanceId);
         console.log("clear "+ this.props.intervalId);
+        console.log("clear "+ this.props.advanceId);
     }
     render() {
         return (
@@ -72,6 +74,6 @@ class Container extends React.Component {
 }
 
 export default connect(
-    state => ({ intervalId:state.intervalId }),
+    state => ({ intervalId:state.intervalId,advanceId:state.adviceId }),
     { initialize }
 )(Container);

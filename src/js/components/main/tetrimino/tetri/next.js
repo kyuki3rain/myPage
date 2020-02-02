@@ -46,11 +46,11 @@ class Container extends React.Component {
     pauseGame(){
         this.props.resetGame();
         clearInterval(this.props.intervalId);
-        // clearInterval(this.props.advanceId);
+        clearInterval(this.props.advanceId);
         this.props.setIntervalId(0);
-        // this.props.setAdvanceId(0);
+        this.props.setAdvanceId(0);
         console.log("clear "+ this.props.intervalId);
-        // console.log("clear "+ localAdvanceId);
+        console.log("clear "+ this.props.advanceId);
     }
     returnColor(f){
         switch(f){

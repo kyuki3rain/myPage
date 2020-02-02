@@ -20,6 +20,10 @@ export const ActionType ={
     RESETPREBLOCK:"resetPreBlock",
     SETNEXTBLOCK:"setNextBlock",
     SETHOLDBLOCK:"setHoldBlock",
+    ADDSCORE:"addScore",
+    TIMEUPDATE:"timeUpdate",
+    TIMERESET:"timeReset",
+    FLAMEUPDATE:"flameUpdate",
 };
 
 
@@ -45,3 +49,6 @@ export const updatePreBlock = (block) => ({type:ActionType.PREBLOCK,payload:bloc
 export const resetPreBlock = () => ({type:ActionType.RESETPREBLOCK})
 export const setNextBlock = (blockBox) => ({type:ActionType.SETNEXTBLOCK,payload:blockBox})
 export const setHoldBlock = (holdBlock) => ({type:ActionType.SETHOLDBLOCK,payload:holdBlock})
+export const addScore = (score) => ({type:ActionType.ADDSCORE,payload:score});
+export const timeUpdate = (time) => ({type:ActionType.TIMEUPDATE,payload:time})
+export const flameUpdate = (flame) => ({type:ActionType.FLAMEUPDATE,payload:flame})
