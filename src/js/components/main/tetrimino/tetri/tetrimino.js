@@ -14,7 +14,7 @@ const Style = styled.div`
     display:flex;
     flex-direction:row;
     justify-content:center;
-    width:60vw;
+    width:90vw;
     margin:40px auto 0;
     position:relative;
 `;
@@ -26,23 +26,52 @@ const Left = styled.div`
     justify-content:space-between;
 `;
 
+const Notes = styled.div`
+    width:20vw;
+    height:40vw;
+    margin:0 5vw 0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+`;
+
+const Text = styled.div`
+    color:white;
+    font-size:2.4vw;
+    margin:1vw 0;
+`;
+
 class Container extends React.Component {
+    componentWillUnmount(){
+        this.props.initialize();
+        clearInterval(this.props.intervalId);
+        console.log("clear "+ this.props.intervalId);
+    }
     render() {
         return (
         <Style>
             <Menu></Menu>
+            <Notes>
+                <Text>D:右回転</Text>
+                <Text>E:ホールド</Text>
+            </Notes>
             <Left>
                 <Hold></Hold>
                 <Score></Score>
             </Left>
             <Field></Field>
             <Next></Next>
+            <Notes>
+                <Text>←:左移動</Text>
+                <Text>→:右移動</Text>
+                <Text>↓:加速</Text>
+            </Notes>
         </Style>
         );
     }
 }
 
 export default connect(
-    state => ({ map:state.map }),
+    state => ({ intervalId:state.intervalId }),
     { initialize }
 )(Container);

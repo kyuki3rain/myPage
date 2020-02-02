@@ -326,7 +326,9 @@ class Container extends React.Component {
                 this.props.mapUpdate(map);
                 this.Hold();
             }
-
+        }
+        if(e.keyCode == 40){
+            this.count+=5;
         }
         if(e.keyCode == 37){
             let map = JSON.parse(JSON.stringify(this.props.map));

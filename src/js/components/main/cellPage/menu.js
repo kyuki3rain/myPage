@@ -59,6 +59,9 @@ export default class Menu extends React.Component {
     reset(){
         this.props.changeCell(-1,-1);
     }
+    componentWillUnmount(){
+        this.stopLoop();
+    }
     render() {
         return (
             <Style>
