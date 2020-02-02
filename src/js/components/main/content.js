@@ -7,6 +7,7 @@ import GritchPage from "./gritchPage";
 import DicePage from "./nicePage/NicePage";
 import CellPage from "./cellPage/CellPage";
 import Maintain from "./maintain";
+import tetriPage from "./tetrimino/tetriPage";
 
 
 const Style = styled.div`
@@ -14,7 +15,7 @@ const Style = styled.div`
     width:100vw;
     box-sizing:border-box;
     padding:10vh 0 0;
-    height:95%;
+    height:90%;
 `;
 
 
@@ -26,6 +27,7 @@ export default class Content extends React.Component {
                 <Route path="/glitch" component={GritchPage}></Route>
                 <Route path="/game1" component={DicePage}></Route>
                 <Route path="/cell" component={CellPage}></Route>
+                <Route path="/tetrimino" component={tetriPage}></Route>
             </Style>
         );
     }
