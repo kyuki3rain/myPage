@@ -19,6 +19,7 @@ export const ActionType ={
     PREBLOCK:"preBlock",
     RESETPREBLOCK:"resetPreBlock",
     SETNEXTBLOCK:"setNextBlock",
+    SETHOLDBLOCK:"setHoldBlock",
 };
 
 
@@ -43,3 +44,4 @@ export const updateMino = (mino) => ({type:ActionType.UPDATEMINO,payload:mino})
 export const updatePreBlock = (block) => ({type:ActionType.PREBLOCK,payload:block})
 export const resetPreBlock = () => ({type:ActionType.RESETPREBLOCK})
 export const setNextBlock = (blockBox) => ({type:ActionType.SETNEXTBLOCK,payload:blockBox})
+export const setHoldBlock = (holdBlock) => ({type:ActionType.SETHOLDBLOCK,payload:holdBlock})

@@ -81,7 +81,6 @@ class Container extends React.Component {
     }
     render() {
         const box=[];
-        console.log(this.props.mino);
         for(let k=0;k<4;k++){
             
             const boxrow = [];

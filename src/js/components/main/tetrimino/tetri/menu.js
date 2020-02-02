@@ -6,7 +6,7 @@ import { leftPosition,rightPosition,makeGame,
     blockChange,blockRotateChange,mapUpdate,
     addMino,updatePreBlock,pullMino,setPosition,
     advancePosition,updateMino,resetPreBlock,
-    setNextBlock,setAdvanceId} from "../actions";
+    setNextBlock,setAdvanceId,setHoldBlock } from "../actions";
 
 const Style = styled.div`
     width:30vw;
@@ -102,6 +102,7 @@ class Container extends React.Component {
     constructor(props){
         super(props);
         this.count = 0;
+        this.holdCount = 0;
     }
     blockRotate(){
         let nextBlock=new Array(4);
@@ -161,6 +162,14 @@ class Container extends React.Component {
         this.props.updateMino(p);
         this.props.resetPreBlock();
         this.props.waitTime(0);
+        this.holdCount = 0;
+    }
+    Hold(){
+        this.props.setHoldBlock();
+        this.blockSet();
+        this.nextSet();
+        this.holdCount = 1;
+        // console.log(this.holdCount);
     }
     gameCheck(){
         let map = JSON.parse(JSON.stringify(this.props.map));
@@ -172,7 +181,6 @@ class Container extends React.Component {
             console.log("clear "+ this.props.intervalId);
         }
         else{
-            console.log(map);
             for(let i=0;i<20;i++){
                 let f=0;
                 for(let j=0;j<10;j++){
@@ -187,17 +195,17 @@ class Container extends React.Component {
         }
     }
     nextSet(){
-        let blockBox = new Array(4);
-        for(let k=0;k<4;k++){
+        let blockBox = new Array(5);
+        for(let k=0;k<5;k++){
             blockBox[k] = new Array(4);
             for(let i=0;i<4;i++){
                 blockBox[k][i] = new Array(4).fill(0);
             }
             for(let i=0;i<4;i++){
-                blockBox[k][minoForm[this.props.mino[k]][i+1][0]+1][minoForm[this.props.mino[k]][i+1][1]+1]=this.props.mino[k];
+                if(k<4)blockBox[k][minoForm[this.props.mino[k]][i+1][0]+1][minoForm[this.props.mino[k]][i+1][1]+1]=this.props.mino[k];
+                else blockBox[k][minoForm[this.props.holdBlock][i+1][0]+1][minoForm[this.props.holdBlock][i+1][1]+1]=this.props.holdBlock;
             }
         }
-        console.log(blockBox);
         this.props.setNextBlock(blockBox);
     }
     Loop(){
@@ -266,7 +274,6 @@ class Container extends React.Component {
                 this.count = 0;
             }
         }
-        // console.log(this.props.position);
     }
     startGame(){
         this.props.initialize();
@@ -305,6 +312,21 @@ class Container extends React.Component {
         }
         if(e.keyCode == 68){
             this.blockRotate();
+        }
+        if(e.keyCode == 69){
+            if(this.holdCount==0){
+                let map = JSON.parse(JSON.stringify(this.props.map));
+                // let preMap = this.props.preMap;
+                let preBlock = JSON.parse(JSON.stringify(this.props.preBlock));
+                for(let i=0;i<4;i++){
+                    if(preBlock[i][0]>=0){
+                        map[preBlock[i][0]][preBlock[i][1]]=0;
+                    }
+                }
+                this.props.mapUpdate(map);
+                this.Hold();
+            }
+
         }
         if(e.keyCode == 37){
             let map = JSON.parse(JSON.stringify(this.props.map));
@@ -375,5 +397,6 @@ export default connect(
         initialize,setIntervalId,waitTime,blockChange,
         blockRotateChange,mapUpdate,updatePreBlock,
         addMino,pullMino,setPosition,advancePosition,
-        updateMino,resetPreBlock,setNextBlock,setAdvanceId }
+        updateMino,resetPreBlock,setNextBlock,setAdvanceId,
+        setHoldBlock }
 )(Container);

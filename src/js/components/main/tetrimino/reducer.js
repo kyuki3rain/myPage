@@ -15,8 +15,8 @@ let preBlock = new Array(4);
 for(let y = 0; y < 4; y++) {
     preBlock[y] = new Array(2).fill(0);
 }
-let blockBox = new Array(4);
-for(let y = 0; y < 4; y++) {
+let blockBox = new Array(5);
+for(let y = 0; y < 5; y++) {
     blockBox[y] = new Array(4);
     for(let z = 0; z < 4; z++) {
         blockBox[y][z] = new Array(4).fill(0);
@@ -54,6 +54,7 @@ const initialStates = {
     minoNum:0,
     preBlock:preBlock,
     blockBox:blockBox,
+    holdBlock:0,
 };
 
 export default (state = initialStates, action) => {
@@ -75,6 +76,14 @@ export default (state = initialStates, action) => {
         case ActionType.PREBLOCK: return {...state, preBlock:action.payload};
         case ActionType.RESETPREBLOCK: return {...state, preBlock:preBlock};
         case ActionType.SETNEXTBLOCK: return {...state, blockBox:action.payload};
+        case ActionType.SETHOLDBLOCK: 
+        if(state.holdBlock==0){
+            return {...state,mino:state.mino,holdBlock:state.minoNum}
+        }
+        else{
+            let mino= state.mino;mino.unshift(state.holdBlock);
+            return {...state,mino:mino,holdBlock:state.minoNum}
+        }
 
         case ActionType.INITIALIZE: return initialStates;
             
