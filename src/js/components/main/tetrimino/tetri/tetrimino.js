@@ -27,9 +27,19 @@ const Left = styled.div`
 `;
 
 const Notes = styled.div`
-    width:20vw;
+    width:25vw;
     height:40vw;
-    margin:0 5vw 0;
+    padding:0 0 0 1vw;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+`;
+const LNotes = styled.div`
+    width:25vw;
+    height:40vw;
+    box-sizing:border-box;
+    padding:0 0 0 8vw;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -39,6 +49,9 @@ const Text = styled.div`
     color:#112d4e;
     font-size:2.4vw;
     margin:1vw 0;
+`;
+const Textx = styled(Text)`
+    text-decoration: line-through;
 `;
 
 class Container extends React.Component {
@@ -53,11 +66,12 @@ class Container extends React.Component {
         return (
         <Style>
             <Menu></Menu>
-            <Notes>
+            <LNotes>
+                <Text>A:左回転</Text>
                 <Text>D:右回転</Text>
                 <Text>E:ホールド</Text>
                 <Text>Esc:ポーズ</Text>
-            </Notes>
+            </LNotes>
             <Left>
                 <Hold></Hold>
                 <Score></Score>
@@ -65,6 +79,7 @@ class Container extends React.Component {
             <Field></Field>
             <Next></Next>
             <Notes>
+                <Textx>↑:ハードドロップ</Textx>
                 <Text>←:左移動</Text>
                 <Text>→:右移動</Text>
                 <Text>↓:加速</Text>
