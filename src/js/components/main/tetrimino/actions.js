@@ -24,6 +24,8 @@ export const ActionType ={
     TIMEUPDATE:"timeUpdate",
     TIMERESET:"timeReset",
     FLAMEUPDATE:"flameUpdate",
+    CHANGEOPTION:"changeOption",
+    CHANGESPEED:"changeSpeed",
 };
 
 
@@ -52,3 +54,5 @@ export const setHoldBlock = (holdBlock) => ({type:ActionType.SETHOLDBLOCK,payloa
 export const addScore = (score) => ({type:ActionType.ADDSCORE,payload:score});
 export const timeUpdate = (time) => ({type:ActionType.TIMEUPDATE,payload:time})
 export const flameUpdate = (flame) => ({type:ActionType.FLAMEUPDATE,payload:flame})
+export const changeOption = ()=> ({type:ActionType.CHANGEOPTION})
+export const changeSpeed = (speed) => ({type:ActionType.CHANGESPEED,payload:speed})

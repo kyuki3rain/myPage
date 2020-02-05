@@ -10,8 +10,8 @@ const Style = styled.div`
     display:float;
     width:100vw;
     height:8vh;
-    background-color:transparent;
-    color:#112d4e;
+    background-color:#112d4e;
+    color:#f9f7f7;
     z-index:100;
     display:flex;
     justify-content:space-between;

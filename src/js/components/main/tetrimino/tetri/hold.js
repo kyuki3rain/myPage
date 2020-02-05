@@ -9,14 +9,14 @@ const Style = styled.div`
     box-sizing:border-box;
     margin:0;
     padding:1vw 0 0;
+    background-color:#dbe2ef;
 `;
 
 const Rect = styled.div`
     width:2vw;
     height:2vw;
-    /* border:2px black solid; */
+    border:1px #dbe2ef solid;
     box-sizing:border-box;
-    /* margin:-1px; */
     background-color:${props => props.color};
 `;
 

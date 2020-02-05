@@ -16,7 +16,7 @@ const MenuList = styled.div`
     /* color:#112d4e; */
 
     :hover{
-        border-bottom:0.2vh #112d4e solid;
+        border-bottom:0.2vh #f9f7f7 solid;
         /* transition:border 500ms 0s ease; */
     }
 `;

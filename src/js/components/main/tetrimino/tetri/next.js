@@ -16,6 +16,7 @@ const Box = styled.div`
     box-sizing:border-box;
     margin:0 0 1vw;
     padding:1vw 0 0;
+    background-color:#dbe2ef;
 `;
 
 const Button = styled.button`
@@ -30,9 +31,8 @@ const Button = styled.button`
 const Rect = styled.div`
     width:1.5vw;
     height:1.5vw;
-    /* border:2px black solid; */
+    border:1px #dbe2ef solid;
     box-sizing:border-box;
-    /* margin:-1px; */
     background-color:${props => props.color};
 `;
 

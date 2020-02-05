@@ -7,32 +7,41 @@ import { leftPosition,rightPosition,makeGame,
     addMino,updatePreBlock,pullMino,setPosition,
     advancePosition,updateMino,resetPreBlock,
     setNextBlock,setAdvanceId,setHoldBlock,addScore,
-    timeUpdate,flameUpdate } from "../actions";
+    timeUpdate,flameUpdate,changeOption,changeSpeed } from "../actions";
+
 
 const Style = styled.div`
     width:30vw;
     height:20vw;
-    background-color:black;
+    background-color:#112d4e;
     position:absolute;
     top:10vw;
-    opacity:0.8;
-    color:white;
+    opacity:0.9;
+    color:#f9f7f7;
     text-align:center;
     padding:4vw 0;
     box-sizing:border-box;
     display:${props => props.f};
-    padding:3vw 0 5vw;
+    padding:2vw 0 5vw;
 `;
 
 const Button = styled.div`
     width:20vw;
     height:4vw;
     font-size:3vw;
-    margin:2vw auto;
+    margin:1vw auto;
     box-sizing:border-box;
     :hover{
-        border-bottom:0.2vw white solid;
+        border-bottom:0.2vw #f9f7f7 solid;
     }
+`;
+
+const Menyu = styled.div`
+    display:${props => props.f};
+`;
+
+const Option = styled.div`
+    display:${props => props.f};
 `;
 
 export const minoForm = [
@@ -94,14 +103,9 @@ export const minoForm = [
     ],
 ]
 
-const maxWait = 30;
-
 var arr = [1,2,3,4,5,6,7];
 var a = arr.length;
 
-let count = 0;
- 
-//シャッフルアルゴリズム
 
 
 class Container extends React.Component {
@@ -110,37 +114,42 @@ class Container extends React.Component {
         this.count = 0;
         this.holdCount = 0;
         this.flameCount = 0;
+        this.state={option:0};
+        this.line=0;
+        this.stopping = 0;
     }
-    blockRotate(){
-        let nextBlock=new Array(4);
-        let minoRotate=(this.props.rotate+1)%minoForm[this.props.minoNum][0];
+    blockRotate(t){
         let map = JSON.parse(JSON.stringify(this.props.map));
         // let preMap = this.props.preMap;
         let preBlock = JSON.parse(JSON.stringify(this.props.preBlock));
+        let nextBlock=new Array(4);
+        let minoRotate=(this.props.rotate+4+t)%minoForm[this.props.minoNum][0];
         for(let i=0;i<4;i++){
             if(preBlock[i][0]>=0){
                 map[preBlock[i][0]][preBlock[i][1]]=0;
             }
         }
-        // console.log(minoForm[this.props.minoNum][0]);
         let f = 0;
-        for(let i=1;i<5;i++){
-            nextBlock[i-1]= JSON.parse(JSON.stringify(minoForm[this.props.minoNum][i]));
+        for(let i=0;i<4;i++){
+            nextBlock[i] = JSON.parse(JSON.stringify(minoForm[this.props.minoNum][i+1]));
             for(let j=0;j<minoRotate;j++){
-                nextBlock[i-1] = [nextBlock[i-1][1],-nextBlock[i-1][0]];
+                nextBlock[i] = [nextBlock[i][1],-nextBlock[i][0]];
             }
-            if(nextBlock[i-1][0]+this.props.position[0]>=20
-                ||nextBlock[i-1][0]+this.props.position[0]<0
-                ||nextBlock[i-1][1]+this.props.position[1]>=10
-                ||nextBlock[i-1][1]+this.props.position[1]<0){
-                    if(map[nextBlock[i-1][0]+this.props.position[0]][nextBlock[i-1][1]+this.props.position[1]]!=0)
-                    f=1;
+            if(nextBlock[i][0]+this.props.position[0]>=20
+                ||nextBlock[i][0]+this.props.position[0]<0
+                ||nextBlock[i][1]+this.props.position[1]>=10
+                ||nextBlock[i][1]+this.props.position[1]<0){
+                    f=1;break;
+            }
+            else{
+                if(map[nextBlock[i][0]+this.props.position[0]][nextBlock[i][1]+this.props.position[1]]!=0){
+                    f=1;break;
                 }
+            }
         }
         if(f==0){
             this.props.blockRotateChange(minoRotate);
             this.props.blockChange(nextBlock);
-            // console.log(nextBlock);
         }
     }
     shaffle(){
@@ -176,7 +185,6 @@ class Container extends React.Component {
         this.blockSet();
         this.nextSet();
         this.holdCount = 1;
-        // console.log(this.holdCount);
     }
     gameCheck(){
         let map = JSON.parse(JSON.stringify(this.props.map));
@@ -196,6 +204,11 @@ class Container extends React.Component {
                     map.splice(i,1);
                     map.unshift(zero);
                     this.props.addScore(point);
+                    this.line++;
+                    if(this.line>=10){
+                        this.props.changeSpeed(this.props.advanceSpeed+3);
+                        this.line=0;
+                    }
                 }
             }
             this.props.mapUpdate(map);
@@ -215,82 +228,81 @@ class Container extends React.Component {
         }
         this.props.setNextBlock(blockBox);
     }
-    Loop(){
+    positionControl(){
         let map = JSON.parse(JSON.stringify(this.props.map));
         // let preMap = this.props.preMap;
-        let f=0;
         let preBlock = JSON.parse(JSON.stringify(this.props.preBlock));
         for(let i=0;i<4;i++){
             if(preBlock[i][0]>=0){
                 map[preBlock[i][0]][preBlock[i][1]]=0;
             }
         }
+        let f = 0;
         for(let i=0;i<4;i++){
-            if(
-                this.props.position[0]+this.props.block[i][0]>=0
-                && this.props.position[0]+this.props.block[i][0]<20
-                && this.props.position[1]+this.props.block[i][1]>=0
-                && this.props.position[1]+this.props.block[i][1]<10
-            ){
-                // console.log([this.props.position[0]+this.props.block[i][0],this.props.position[1]+this.props.block[i][1]])
-                if(map[this.props.position[0]+this.props.block[i][0]][this.props.position[1]+this.props.block[i][1]]!=0){
-                    if(this.props.wait>=maxWait){
-                        this.props.waitTime(0);
-                        this.gameCheck();
-                        this.blockSet();
-                        this.nextSet();
-                    }
-                    else{
-                        this.props.waitTime(this.props.wait+1);
-                    }
-                    f=1;break;
+            if(this.props.position[0]+this.props.block[i][0]+1<20){
+                if(map[this.props.position[0]+this.props.block[i][0]+1][this.props.position[1]+this.props.block[i][1]]!=0){
+                    f=1;
+                    break;
                 }
-                else{
-                    map[this.props.position[0]+this.props.block[i][0]][this.props.position[1]+this.props.block[i][1]]=this.props.minoNum;
-                }
-            }
-            else if(this.props.position[0]+this.props.block[i][0]<0
-                && this.props.position[0]+this.props.block[i][0]<20
-                && this.props.position[1]+this.props.block[i][1]>=0
-                && this.props.position[1]+this.props.block[i][1]<10
-                ){
-
             }
             else{
-                if(this.props.position[1]+this.props.block[i][1]<10){
-                    if(this.props.wait>=maxWait){
-                        this.props.waitTime(0);
-                        this.gameCheck();
-                        this.blockSet();
-                        this.nextSet();
-                    }
-                    else{
-                        this.props.waitTime(this.props.wait+1);
-                    }
-                }
-                f=1;break;
+                f=1;
+                break;
             }
-            preBlock[i]=[this.props.position[0]+this.props.block[i][0],this.props.position[1]+this.props.block[i][1]];
         }
         if(f==0){
+            this.props.advancePosition();
+            this.count = 0;
+        }
+        else{
+            this.props.waitTime(this.props.wait+Math.floor(this.stopping/5)+1);
+        }
+    }
+    Loop(){
+        
+        if(this.props.wait>=this.props.maxWait){
+            this.props.waitTime(0);
+            this.gameCheck();
+            this.blockSet();
+            this.nextSet();
+        }else{
+            let map = JSON.parse(JSON.stringify(this.props.map));
+            // let preMap = this.props.preMap;
+            let preBlock = JSON.parse(JSON.stringify(this.props.preBlock));
+            let f = 0;
+            for(let i=0;i<4;i++){
+                if(preBlock[i][0]!=this.props.position[0]+this.props.block[i][0]||preBlock[i][1]!=this.props.position[1]+this.props.block[i][1])f = 1;
+                if(preBlock[i][0]>=0){
+                    map[preBlock[i][0]][preBlock[i][1]]=0;
+                }
+            }
+            if(f==0){
+                this.stopping+=1;
+            }
+            else {
+                this.stopping = 0;
+            }
+            for(let i=0;i<4;i++){
+                map[this.props.position[0]+this.props.block[i][0]][this.props.position[1]+this.props.block[i][1]]=this.props.minoNum;
+                preBlock[i]=[this.props.position[0]+this.props.block[i][0],this.props.position[1]+this.props.block[i][1]];
+            }
             this.count++;
             this.props.updatePreBlock(preBlock);
             this.props.mapUpdate(map);
-            if(this.count >= this.props.gameSpeed/this.props.advanceSpeed){
-                this.props.advancePosition();
-                this.count = 0;
-            }
         }
-        this.flameCount++;
         
+        this.flameCount++;
+        if(this.count >= this.props.gameSpeed/this.props.advanceSpeed){
+            this.positionControl();
+        }
     }
     time(){
         this.props.timeUpdate([this.props.time[0]+Math.floor((this.props.time[1]+1)/60),(this.props.time[1]+1)%60]);
         this.props.flameUpdate(this.flameCount);
         this.flameCount=0;
-        console.log(this.props.time[1]);
     }
     startGame(){
+        this.line=0;
         this.props.initialize();
         this.props.makeGame();
         this.blockSet();
@@ -324,8 +336,11 @@ class Container extends React.Component {
         if(e.keyCode == 27){
             this.pauseGame();
         }
+        if(e.keyCode == 65){
+            this.blockRotate(-1);
+        }
         if(e.keyCode == 68){
-            this.blockRotate();
+            this.blockRotate(1);
         }
         if(e.keyCode == 69){
             if(this.holdCount==0){
@@ -389,6 +404,16 @@ class Container extends React.Component {
             if(f==0)this.props.rightPosition();
         }
     }
+    changeMenu(){
+        if(this.option){
+
+        }
+        else{
+            
+        }
+        // this.props.changeOption();
+        this.setState({option:(this.state.option+1)%2});
+    }
     componentDidMount(){
         window.addEventListener("keydown",this.keyCheck.bind(this));
     }
@@ -399,8 +424,15 @@ class Container extends React.Component {
         // const {gameSpeed,gamePlay,intervalId,makeGame,resetGame,initialize,setIntervalId,minoNum,waitTime,wait,blockChange,blockRotateChange} = this.props;
         return (
         <Style f={(this.props.gamePlay)?"none":"block"}>
-            <Button onClick={this.startGame.bind(this)}>最初から</Button>
-            <Button onClick={this.stopGame.bind(this)}>途中から</Button>
+            <Menyu f={(this.state.option)?"none":"block"}>
+                <Button onClick={this.startGame.bind(this)}>最初から</Button>
+                <Button onClick={this.stopGame.bind(this)}>途中から</Button>
+                <Button onClick={this.changeMenu.bind(this)}>設定</Button>
+            </Menyu>
+            <Option f={(this.state.option)?"block":"none"}>
+
+                <Button onClick={this.changeMenu.bind(this)}>戻る</Button>
+            </Option>
         </Style>
         );
     }
@@ -413,5 +445,5 @@ export default connect(
         blockRotateChange,mapUpdate,updatePreBlock,
         addMino,pullMino,setPosition,advancePosition,
         updateMino,resetPreBlock,setNextBlock,setAdvanceId,
-        setHoldBlock,addScore,timeUpdate,flameUpdate }
+        setHoldBlock,addScore,timeUpdate,flameUpdate,changeOption,changeSpeed }
 )(Container);

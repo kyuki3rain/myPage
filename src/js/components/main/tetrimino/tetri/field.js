@@ -4,22 +4,24 @@ import { connect } from 'react-redux';
 
 const Style = styled.div`
     width:20vw;
-    margin:0 2vw;
+    margin:0vw 2vw;
+    height:calc(40vw);
+    border:4px #112d4e solid;
 `;
 
 const Rect = styled.div`
     width:2vw;
     height:2vw;
-    border:2px black solid;
+    border:1px #dbe2ef solid;
     box-sizing:border-box;
-    margin:-1px;
+    /* margin:-1px; */
     background-color:${props => props.color};
 `;
 
 const Boxrow = styled.div`
     display:flex;
     flex-direction:row;
-    padding:0 10px;
+    /* padding:0 10px; */
 `;
 
 class Container extends React.Component {

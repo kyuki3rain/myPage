@@ -58,6 +58,8 @@ const initialStates = {
     score:0,
     time:time,
     flame:0,
+    option:0,
+    maxWait:100,
 };
 
 export default (state = initialStates, action) => {
@@ -83,6 +85,8 @@ export default (state = initialStates, action) => {
         case ActionType.TIMEUPDATE: return {...state, time:action.payload}
         case ActionType.TIMERESET: return {...state, time:time}
         case ActionType.FLAMEUPDATE: return {...state, flame:action.payload}
+        case ActionType.CHANGEOPTION: return {...state, option:(state.option+1)%2}
+        case ActionType.CHANGESPEED: return {...state, advanceSpeed:action.payload}
         
         case ActionType.SETHOLDBLOCK: 
         if(state.holdBlock==0){
