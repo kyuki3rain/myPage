@@ -7,7 +7,8 @@ import { leftPosition,rightPosition,makeGame,
     addMino,updatePreBlock,pullMino,setPosition,
     advancePosition,updateMino,resetPreBlock,
     setNextBlock,setAdvanceId,setHoldBlock,addScore,
-    timeUpdate,flameUpdate,changeOption,changeSpeed } from "../actions";
+    timeUpdate,flameUpdate,changeOption,changeSpeed,
+    predictPosition,dropPosition } from "../actions";
 
 
 const Style = styled.div`
@@ -150,6 +151,7 @@ class Container extends React.Component {
         if(f==0){
             this.props.blockRotateChange(minoRotate);
             this.props.blockChange(nextBlock);
+            this.predict(this.props.block);
         }
     }
     shaffle(){
@@ -163,22 +165,21 @@ class Container extends React.Component {
     }
     blockSet(){
         this.props.setPosition();
-        if(this.props.mino.length<7){
-            this.props.addMino();
-        }
+        if(this.props.mino.length<14)this.props.addMino();
+        this.props.blockRotateChange(0);
+        this.props.resetPreBlock();
+        this.props.waitTime(0);
+        this.holdCount = 0;
+        let nextBlock = new Array(4);
         let mino = this.props.mino;
         let p = mino.shift();
-        let nextBlock = new Array(4);
         for(let i=0;i<4;i++){
             nextBlock[i] = minoForm[p][i+1];
         }
         this.props.blockChange(nextBlock);
-        this.props.blockRotateChange(0);
         this.props.pullMino(mino);
         this.props.updateMino(p);
-        this.props.resetPreBlock();
-        this.props.waitTime(0);
-        this.holdCount = 0;
+        this.predict(nextBlock);
     }
     Hold(){
         this.props.setHoldBlock();
@@ -227,6 +228,7 @@ class Container extends React.Component {
             }
         }
         this.props.setNextBlock(blockBox);
+
     }
     positionControl(){
         let map = JSON.parse(JSON.stringify(this.props.map));
@@ -379,7 +381,10 @@ class Container extends React.Component {
                     f=1;
                 }
             }
-            if(f==0)this.props.leftPosition();
+            if(f==0){
+                this.props.leftPosition();
+                this.predict(this.props.block);
+            }
         }
         if(e.keyCode == 39){
             let map = JSON.parse(JSON.stringify(this.props.map));
@@ -401,7 +406,13 @@ class Container extends React.Component {
                     f=1;
                 }
             }
-            if(f==0)this.props.rightPosition();
+            if(f==0){
+                this.props.rightPosition();
+                this.predict(this.props.block);
+            }
+        }
+        if(e.keyCode === 38){
+            this.props.dropPosition();
         }
     }
     changeMenu(){
@@ -413,6 +424,37 @@ class Container extends React.Component {
         }
         // this.props.changeOption();
         this.setState({option:(this.state.option+1)%2});
+    }
+    predict(block){
+        let f;
+        let map = JSON.parse(JSON.stringify(this.props.map));
+        // let preMap = this.props.preMap;
+        let preBlock = JSON.parse(JSON.stringify(this.props.preBlock));
+        for(let i=0;i<4;i++){
+            if(preBlock[i][0]>=0){
+                map[preBlock[i][0]][preBlock[i][1]]=0;
+            }
+        }
+        let prePosition = this.props.position[0];
+
+        do{
+            prePosition++;
+            f=0;
+            for(let i=0;i<4;i++){
+                if(prePosition+block[i][0]<20){
+                    if(map[prePosition+block[i][0]][this.props.position[1]+block[i][1]]!=0){
+                        f=1;
+                        break;
+                    }
+                }
+                else{
+                    f=1;
+                    break;
+                }
+            }
+        }while(f==0);
+        prePosition--;
+        this.props.predictPosition(prePosition);
     }
     componentDidMount(){
         window.addEventListener("keydown",this.keyCheck.bind(this));
@@ -445,5 +487,6 @@ export default connect(
         blockRotateChange,mapUpdate,updatePreBlock,
         addMino,pullMino,setPosition,advancePosition,
         updateMino,resetPreBlock,setNextBlock,setAdvanceId,
-        setHoldBlock,addScore,timeUpdate,flameUpdate,changeOption,changeSpeed }
+        setHoldBlock,addScore,timeUpdate,flameUpdate,changeOption,
+        changeSpeed,predictPosition,dropPosition }
 )(Container);

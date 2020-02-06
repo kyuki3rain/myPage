@@ -79,7 +79,7 @@ class Container extends React.Component {
             <Field></Field>
             <Next></Next>
             <Notes>
-                <Textx>↑:ハードドロップ</Textx>
+                <Text>↑:ハードドロップ</Text>
                 <Text>←:左移動</Text>
                 <Text>→:右移動</Text>
                 <Text>↓:加速</Text>

@@ -26,6 +26,8 @@ export const ActionType ={
     FLAMEUPDATE:"flameUpdate",
     CHANGEOPTION:"changeOption",
     CHANGESPEED:"changeSpeed",
+    PREDICT_POSITION:"predictPosition",
+    DROPPOSITION:"dropPosition",
 };
 
 
@@ -46,6 +48,7 @@ export const setPosition = () => ({type:ActionType.SETPOSITION})
 export const leftPosition = () => ({type:ActionType.LEFTPOSITION})
 export const rightPosition = () => ({type:ActionType.RIGHTPOSITION})
 export const advancePosition = () => ({type:ActionType.ADVANCEPOSITION})
+export const dropPosition = () => ({type:ActionType.DROPPOSITION})
 export const updateMino = (mino) => ({type:ActionType.UPDATEMINO,payload:mino})
 export const updatePreBlock = (block) => ({type:ActionType.PREBLOCK,payload:block})
 export const resetPreBlock = () => ({type:ActionType.RESETPREBLOCK})
@@ -56,3 +59,4 @@ export const timeUpdate = (time) => ({type:ActionType.TIMEUPDATE,payload:time})
 export const flameUpdate = (flame) => ({type:ActionType.FLAMEUPDATE,payload:flame})
 export const changeOption = ()=> ({type:ActionType.CHANGEOPTION})
 export const changeSpeed = (speed) => ({type:ActionType.CHANGESPEED,payload:speed})
+export const predictPosition = (position) => ({type:ActionType.PREDICT_POSITION,payload:position})

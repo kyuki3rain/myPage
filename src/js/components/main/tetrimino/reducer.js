@@ -5,7 +5,13 @@ let tbl = new Array(21);
 for(let y = 0; y < 20; y++) {
     tbl[y] = new Array(10).fill(0);
 }
-tbl[20] = new Array(10).fill(10)
+tbl[20] = new Array(10).fill(10);
+
+let tbl2 = new Array(21);
+for(let y = 0; y < 20; y++) {
+    tbl2[y] = new Array(10).fill(8);
+}
+tbl2[20] = new Array(10).fill(10);
 
 let block = new Array(4);
 for(let y = 0; y < 4; y++) {
@@ -46,7 +52,7 @@ const initialStates = {
     advanceId:0,
     gameSpeed:30,
     advanceSpeed:3,
-    mino:shaffle(),
+    mino:shaffle().concat(shaffle()),
     position:[0,4],
     block:block,
     rotation:0,
@@ -60,6 +66,8 @@ const initialStates = {
     flame:0,
     option:0,
     maxWait:100,
+    predictPos:tbl2,
+    predict:[0,4],
 };
 
 export default (state = initialStates, action) => {
@@ -71,12 +79,13 @@ export default (state = initialStates, action) => {
         case ActionType.MAPUPDATE: return {...state, map:action.payload};
         case ActionType.BLOCKROTATECHANGE: return {...state, rotate:action.payload};
         case ActionType.BLOCKCHANGE: return {...state, block:action.payload};
-        case ActionType.ADDMINO: return {...state, mino:state.mino.concat(shaffle())};
+        case ActionType.ADDMINO: let s = state.mino.concat(shaffle());return {...state, mino:s};
         case ActionType.PULLMINO: return {...state, mino:action.payload};
         case ActionType.SETPOSITION: return {...state, position:[0,4]};
         case ActionType.LEFTPOSITION: return {...state, position:[state.position[0],state.position[1]-1]};
         case ActionType.RIGHTPOSITION: return {...state, position:[state.position[0],state.position[1]+1]};
         case ActionType.ADVANCEPOSITION: return {...state, position:[state.position[0]+1,state.position[1]]};
+        case ActionType.DROPPOSITION: return {...state, position:state.predict};
         case ActionType.UPDATEMINO: return {...state, minoNum:action.payload};
         case ActionType.PREBLOCK: return {...state, preBlock:action.payload};
         case ActionType.RESETPREBLOCK: return {...state, preBlock:preBlock};
@@ -87,6 +96,12 @@ export default (state = initialStates, action) => {
         case ActionType.FLAMEUPDATE: return {...state, flame:action.payload}
         case ActionType.CHANGEOPTION: return {...state, option:(state.option+1)%2}
         case ActionType.CHANGESPEED: return {...state, advanceSpeed:action.payload}
+        case ActionType.PREDICT_POSITION:
+            let map = JSON.parse(JSON.stringify(tbl2));
+            for(let i=0;i<4;i++){
+                map[action.payload+state.block[i][0]][state.position[1]+state.block[i][1]]=state.minoNum;
+            }
+            return {...state, predictPos:map, predict:[action.payload,state.position[1]]};
         
         case ActionType.SETHOLDBLOCK: 
         if(state.holdBlock==0){
