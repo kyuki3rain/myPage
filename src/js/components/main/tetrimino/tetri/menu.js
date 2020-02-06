@@ -413,7 +413,7 @@ class Container extends React.Component {
         }
         if(e.keyCode === 38){
             this.props.dropPosition();
-            this.props.waitTime(this.props.maxWait);
+            this.props.waitTime(this.props.maxWait-20);
         }
     }
     changeMenu(){
