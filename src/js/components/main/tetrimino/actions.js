@@ -28,6 +28,8 @@ export const ActionType ={
     CHANGESPEED:"changeSpeed",
     PREDICT_POSITION:"predictPosition",
     DROPPOSITION:"dropPosition",
+    CHANGE_FLAME:"changeFlame",
+    CHANGE_WAIT:"changeWait",
 };
 
 
@@ -60,3 +62,5 @@ export const flameUpdate = (flame) => ({type:ActionType.FLAMEUPDATE,payload:flam
 export const changeOption = ()=> ({type:ActionType.CHANGEOPTION})
 export const changeSpeed = (speed) => ({type:ActionType.CHANGESPEED,payload:speed})
 export const predictPosition = (position) => ({type:ActionType.PREDICT_POSITION,payload:position})
+export const changeFlame = (flame) => ({type:ActionType.CHANGE_FLAME,payload:flame})
+export const changeWait = (wait) => ({type:ActionType.CHANGE_WAIT,payload:wait})

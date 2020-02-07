@@ -96,6 +96,8 @@ export default (state = initialStates, action) => {
         case ActionType.FLAMEUPDATE: return {...state, flame:action.payload}
         case ActionType.CHANGEOPTION: return {...state, option:(state.option+1)%2}
         case ActionType.CHANGESPEED: return {...state, advanceSpeed:action.payload}
+        case ActionType.CHANGE_FLAME: return {...state, gameSpeed:action.payload}
+        case ActionType.CHANGE_WAIT: return {...state, maxWait:action.payload}
         case ActionType.PREDICT_POSITION:
             let map = JSON.parse(JSON.stringify(tbl2));
             for(let i=0;i<4;i++){
@@ -112,7 +114,28 @@ export default (state = initialStates, action) => {
             return {...state,mino:mino,holdBlock:state.minoNum}
         }
 
-        case ActionType.INITIALIZE: return initialStates;
+        case ActionType.INITIALIZE: 
+            let newMino = shaffle().concat(shaffle());
+            // console.log(newMino,state.mino);
+            return {...state,gamePlay:0,
+                map:tbl,
+                intervalId:0,
+                advanceId:0,
+                mino:newMino,
+                position:[0,4],
+                block:block,
+                rotation:0,
+                wait:0,
+                minoNum:0,
+                preBlock:preBlock,
+                blockBox:blockBox,
+                holdBlock:0,
+                score:0,
+                time:time,
+                flame:0,
+                option:0,
+                predictPos:tbl2,
+                predict:[0,4]};
             
         default:return state;
     }

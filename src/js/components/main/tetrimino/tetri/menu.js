@@ -8,22 +8,22 @@ import { leftPosition,rightPosition,makeGame,
     advancePosition,updateMino,resetPreBlock,
     setNextBlock,setAdvanceId,setHoldBlock,addScore,
     timeUpdate,flameUpdate,changeOption,changeSpeed,
-    predictPosition,dropPosition } from "../actions";
+    predictPosition,dropPosition,changeFlame,changeWait } from "../actions";
 
 
 const Style = styled.div`
-    width:30vw;
-    height:20vw;
+    width:36vw;
+    height:24vw;
     background-color:#112d4e;
     position:absolute;
     top:10vw;
     opacity:0.9;
     color:#f9f7f7;
     text-align:center;
-    padding:4vw 0;
+    /* padding:4vw 0; */
     box-sizing:border-box;
     display:${props => props.f};
-    padding:2vw 0 5vw;
+    /* padding:2vw 0 5vw; */
 `;
 
 const Button = styled.div`
@@ -39,10 +39,45 @@ const Button = styled.div`
 
 const Menyu = styled.div`
     display:${props => props.f};
+    padding:4vw 0;
+`;
+
+const Options = styled.div`
+    display:${props => props.f};
+    padding:1vw 0;
 `;
 
 const Option = styled.div`
-    display:${props => props.f};
+    width:32vw;
+    height:4vw;
+    font-size:3vw;
+    margin:1vw auto;
+    box-sizing:border-box;
+    display:flex;
+    justify-content:space-around;
+`;
+
+const Tytle = styled.div`
+    width:8vw;
+    height:3vw;
+    font-size:2vw;
+    color:#f9f7f7;
+    text-align:center;
+`;
+
+const Slider = styled.input`
+    width:16vw;
+    height:3vw;
+`;
+
+const Para = styled.input`
+    width:4vw;
+    height:3vw;
+    font-size:2vw;
+    background-color:transparent;
+    border:none;
+    color:#f9f7f7;
+    text-align:center;
 `;
 
 export const minoForm = [
@@ -261,8 +296,8 @@ class Container extends React.Component {
         }
     }
     Loop(){
-        
         if(this.props.wait>=this.props.maxWait){
+            console.log(this.props.mino);
             this.props.waitTime(0);
             this.gameCheck();
             this.blockSet();
@@ -307,8 +342,7 @@ class Container extends React.Component {
         this.line=0;
         this.props.initialize();
         this.props.makeGame();
-        this.blockSet();
-        this.nextSet();
+        this.props.waitTime(this.props.maxWait);
         let localIntervalId = setInterval(this.Loop.bind(this), 1000/this.props.gameSpeed);
         let localAdvanceId = setInterval(this.time.bind(this), 1000);
         this.props.setIntervalId(localIntervalId);
@@ -472,10 +506,24 @@ class Container extends React.Component {
                 <Button onClick={this.stopGame.bind(this)}>途中から</Button>
                 <Button onClick={this.changeMenu.bind(this)}>設定</Button>
             </Menyu>
-            <Option f={(this.state.option)?"block":"none"}>
-
+            <Options f={(this.state.option)?"block":"none"}>
+                <Option>
+                    <Tytle>flame</Tytle>
+                    <Para type={"text"} value={this.props.gameSpeed} onChange={e => this.props.changeFlame(e.target.value)}></Para>
+                    <Slider type={"range"} value={this.props.gameSpeed} min={1} max={30} step={1} onChange={e => this.props.changeFlame(e.target.value)}></Slider>
+                </Option>
+                <Option>
+                    <Tytle>猶予</Tytle>
+                    <Para type={"text"} value={this.props.maxWait} onChange={e => this.props.changeWait(e.target.value)}></Para>
+                    <Slider type={"range"} value={this.props.maxWait} min={1} max={100} step={1} onChange={e => this.props.changeWait(e.target.value)}></Slider>
+                </Option>
+                <Option>
+                    <Tytle>レベル</Tytle>
+                    <Para type={"text"} value={this.props.advanceSpeed/3} onChange={e => this.props.changeSpeed(e.target.value*3)}></Para>
+                    <Slider type={"range"} value={this.props.advanceSpeed/3} min={1} max={15} step={1} onChange={e => this.props.changeSpeed(e.target.value*3)}></Slider>
+                </Option>
                 <Button onClick={this.changeMenu.bind(this)}>戻る</Button>
-            </Option>
+            </Options>
         </Style>
         );
     }
@@ -489,5 +537,5 @@ export default connect(
         addMino,pullMino,setPosition,advancePosition,
         updateMino,resetPreBlock,setNextBlock,setAdvanceId,
         setHoldBlock,addScore,timeUpdate,flameUpdate,changeOption,
-        changeSpeed,predictPosition,dropPosition }
+        changeSpeed,predictPosition,dropPosition,changeFlame,changeWait }
 )(Container);
