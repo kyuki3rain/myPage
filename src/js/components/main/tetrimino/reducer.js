@@ -86,6 +86,7 @@ export default (state = initialStates, action) => {
         case ActionType.RIGHTPOSITION: return {...state, position:[state.position[0],state.position[1]+1]};
         case ActionType.ADVANCEPOSITION: return {...state, position:[state.position[0]+1,state.position[1]]};
         case ActionType.DROPPOSITION: return {...state, position:state.predict};
+        case ActionType.CHANGE_POSITION: return {...state, position:action.payload};
         case ActionType.UPDATEMINO: return {...state, minoNum:action.payload};
         case ActionType.PREBLOCK: return {...state, preBlock:action.payload};
         case ActionType.RESETPREBLOCK: return {...state, preBlock:preBlock};
@@ -135,7 +136,9 @@ export default (state = initialStates, action) => {
                 flame:0,
                 option:0,
                 predictPos:tbl2,
-                predict:[0,4]};
+                predict:[0,4],
+                advanceSpeed:3,
+            };
             
         default:return state;
     }

@@ -8,7 +8,7 @@ import { leftPosition,rightPosition,makeGame,
     advancePosition,updateMino,resetPreBlock,
     setNextBlock,setAdvanceId,setHoldBlock,addScore,
     timeUpdate,flameUpdate,changeOption,changeSpeed,
-    predictPosition,dropPosition,changeFlame,changeWait } from "../actions";
+    predictPosition,dropPosition,changeFlame,changeWait,changePosition } from "../actions";
 
 
 const Style = styled.div`
@@ -89,42 +89,42 @@ export const minoForm = [
         [0,0]
     ],
     [
-        2,
+        4,
         [0,0],
-        [1,1],
-        [1,0],
-        [0,-1]
-    ],
-    [
-        2,
-        [0,0],
-        [1,0],
-        [1,-1],
+        [-1,-1],
+        [-1,0],
         [0,1]
     ],
     [
         4,
         [0,0],
-        [0,1],
-        [0,-1],
-        [1,-1]
+        [-1,0],
+        [-1,1],
+        [0,-1]
     ],
     [
         4,
         [0,0],
         [0,1],
         [0,-1],
-        [1,1]
+        [-1,1]
+    ],
+    [
+        4,
+        [0,0],
+        [0,1],
+        [0,-1],
+        [-1,-1]
     ],
     [
         1,
         [0,0],
         [0,1],
-        [1,0],
-        [1,1]
+        [-1,0],
+        [-1,1]
     ],
     [
-        2,
+        4,
         [0,0],
         [0,1],
         [0,-1],
@@ -134,7 +134,7 @@ export const minoForm = [
         4,
         [0,0],
         [0,1],
-        [1,0],
+        [-1,0],
         [0,-1]
     ],
 ]
@@ -142,7 +142,139 @@ export const minoForm = [
 var arr = [1,2,3,4,5,6,7];
 var a = arr.length;
 
+const SRSCorrection = [
+    //A1
+    [
+        [0,0],
+        [0,-1],
+        [1,-1],
+        [-2,0],
+        [-2,-1],
+    ],
+    //A2
+    [
+        [0,0],
+        [0,1],
+        [1,1],
+        [-2,0],
+        [-2,1],
+    ],
+    //B
+    [
+        [0,0],
+        [0,-1],
+        [-1,-1],
+        [2,0],
+        [2,-1],
+    ],
+    //B
+    [
+        [0,0],
+        [0,-1],
+        [-1,-1],
+        [2,0],
+        [2,-1],
+    ],
+    //C1
+    [
+        [0,0],
+        [0,-1],
+        [1,-1],
+        [-2,0],
+        [-2,-1],
+    ],
+    //C2
+    [
+        [0,0],
+        [0,1],
+        [1,1],
+        [-2,0],
+        [-2,1],
+    ],
+    //D
+    [
+        [0,0],
+        [0,1],
+        [-1,1],
+        [2,0],
+        [2,1],
+    ],
+    //D
+    [
+        [0,0],
+        [0,1],
+        [-1,1],
+        [2,0],
+        [2,1],
+    ],
+]
 
+const SRSCorrectionI = [
+    //A1
+    [
+        [0,0],
+        [0,-2],
+        [0,1],
+        [2,1],
+        [-1,-2],
+    ],
+    //A2
+    [
+        [0,0],
+        [0,2],
+        [0,-1],
+        [-1,2],
+        [2,-1],
+    ],
+    //B
+    [
+        [0,0],
+        [0,-2],
+        [0,1],
+        [1,-2],
+        [-2,1],
+    ],
+    //B
+    [
+        [0,0],
+        [0,1],
+        [0,-2],
+        [2,1],
+        [-1,-2],
+    ],
+    //C1
+    [
+        [0,0],
+        [0,-1],
+        [0,2],
+        [-2,-1],
+        [1,2],
+    ],
+    //C2
+    [
+        [0,0],
+        [0,1],
+        [0,-2],
+        [1,-2],
+        [-2,1],
+    ],
+    //D
+    [
+        [0,0],
+        [0,2],
+        [0,-1],
+        [-1,2],
+        [-2,-1],
+    ],
+    //D
+    [
+        [0,0],
+        [0,-1],
+        [0,2],
+        [-2,-1],
+        [1,2],
+    ],
+]
 
 class Container extends React.Component {
     constructor(props){
@@ -159,31 +291,68 @@ class Container extends React.Component {
         // let preMap = this.props.preMap;
         let preBlock = JSON.parse(JSON.stringify(this.props.preBlock));
         let nextBlock=new Array(4);
-        let minoRotate=(this.props.rotate+4+t)%minoForm[this.props.minoNum][0];
+        let minoRotate=(this.props.rotate+4+t)%(minoForm[this.props.minoNum][0]);
         for(let i=0;i<4;i++){
             if(preBlock[i][0]>=0){
                 map[preBlock[i][0]][preBlock[i][1]]=0;
             }
         }
-        let f = 0;
         for(let i=0;i<4;i++){
             nextBlock[i] = JSON.parse(JSON.stringify(minoForm[this.props.minoNum][i+1]));
             for(let j=0;j<minoRotate;j++){
                 nextBlock[i] = [nextBlock[i][1],-nextBlock[i][0]];
-            }
-            if(nextBlock[i][0]+this.props.position[0]>=20
-                ||nextBlock[i][0]+this.props.position[0]<0
-                ||nextBlock[i][1]+this.props.position[1]>=10
-                ||nextBlock[i][1]+this.props.position[1]<0){
-                    f=1;break;
-            }
-            else{
-                if(map[nextBlock[i][0]+this.props.position[0]][nextBlock[i][1]+this.props.position[1]]!=0){
-                    f=1;break;
+                if(this.props.minoNum==6){
+                    nextBlock[i][0]++;
                 }
             }
         }
+        let f = 0;
+        let SRSPosition_x,SRSPosition_y;
+        if(this.props.minoNum==6){
+            for(let j=0;j<5;j++){
+                f=0;
+                SRSPosition_x = this.props.position[0]+SRSCorrectionI[2*minoRotate+(t<0)?1:0][j][0];
+                SRSPosition_y = this.props.position[1]+SRSCorrectionI[2*minoRotate+(t<0)?1:0][j][1];
+                for(let i=0;i<4;i++){
+                    if(nextBlock[i][0]+SRSPosition_x>=20
+                        ||nextBlock[i][0]+SRSPosition_x<0
+                        ||nextBlock[i][1]+SRSPosition_y>=10
+                        ||nextBlock[i][1]+SRSPosition_y<0){
+                            f=1;break;
+                    }
+                    else{
+                        if(map[nextBlock[i][0]+SRSPosition_x][nextBlock[i][1]+SRSPosition_y]!=0){
+                            f=1;break;
+                        }
+                    }
+                }
+                if(f==0)break;
+            }
+        }
+        else{
+            for(let j=0;j<5;j++){
+                f=0;
+                SRSPosition_x = this.props.position[0]+SRSCorrection[2*minoRotate-(t-1)/2][j][0];
+                SRSPosition_y = this.props.position[1]+SRSCorrection[2*minoRotate-(t-1)/2][j][1];
+                console.log(2*minoRotate-(t-1)/2,j,SRSCorrection[2*minoRotate+(t+1)/2][j]);
+                for(let i=0;i<4;i++){
+                    if(nextBlock[i][0]+SRSPosition_x>=20
+                        ||nextBlock[i][0]+SRSPosition_x<0
+                        ||nextBlock[i][1]+SRSPosition_y>=10
+                        ||nextBlock[i][1]+SRSPosition_y<0){
+                            f=1;break;
+                    }
+                    else{
+                        if(map[nextBlock[i][0]+SRSPosition_x][nextBlock[i][1]+SRSPosition_y]!=0){
+                            f=1;break;
+                        }
+                    }
+                }
+                if(f==0)break;
+            }
+        }
         if(f==0){
+            this.props.changePosition([SRSPosition_x,SRSPosition_y]);
             this.props.blockRotateChange(minoRotate);
             this.props.blockChange(nextBlock);
             this.predict(this.props.block);
@@ -297,7 +466,7 @@ class Container extends React.Component {
     }
     Loop(){
         if(this.props.wait>=this.props.maxWait){
-            console.log(this.props.mino);
+            // console.log(this.props.mino);
             this.props.waitTime(0);
             this.gameCheck();
             this.blockSet();
@@ -320,7 +489,7 @@ class Container extends React.Component {
                 this.stopping = 0;
             }
             for(let i=0;i<4;i++){
-                map[this.props.position[0]+this.props.block[i][0]][this.props.position[1]+this.props.block[i][1]]=this.props.minoNum;
+                if(this.props.position[0]+this.props.block[i][0]>=0)map[this.props.position[0]+this.props.block[i][0]][this.props.position[1]+this.props.block[i][1]]=this.props.minoNum;
                 preBlock[i]=[this.props.position[0]+this.props.block[i][0],this.props.position[1]+this.props.block[i][1]];
             }
             this.count++;
@@ -373,10 +542,10 @@ class Container extends React.Component {
             this.pauseGame();
         }
         if(e.keyCode == 65){
-            this.blockRotate(-1);
+            if(this.props.minoNum!=5)this.blockRotate(-1);
         }
         if(e.keyCode == 68){
-            this.blockRotate(1);
+            if(this.props.minoNum!=5)this.blockRotate(1);
         }
         if(e.keyCode == 69){
             if(this.holdCount==0){
@@ -447,7 +616,7 @@ class Container extends React.Component {
         }
         if(e.keyCode === 38){
             this.props.dropPosition();
-            this.props.waitTime(this.props.maxWait-20);
+            this.props.waitTime(this.props.maxWait-5);
         }
     }
     changeMenu(){
@@ -537,5 +706,5 @@ export default connect(
         addMino,pullMino,setPosition,advancePosition,
         updateMino,resetPreBlock,setNextBlock,setAdvanceId,
         setHoldBlock,addScore,timeUpdate,flameUpdate,changeOption,
-        changeSpeed,predictPosition,dropPosition,changeFlame,changeWait }
+        changeSpeed,predictPosition,dropPosition,changeFlame,changeWait,changePosition }
 )(Container);

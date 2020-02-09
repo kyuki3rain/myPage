@@ -30,6 +30,7 @@ export const ActionType ={
     DROPPOSITION:"dropPosition",
     CHANGE_FLAME:"changeFlame",
     CHANGE_WAIT:"changeWait",
+    CHANGE_POSITION:"changePosition",
 };
 
 
@@ -51,6 +52,7 @@ export const leftPosition = () => ({type:ActionType.LEFTPOSITION})
 export const rightPosition = () => ({type:ActionType.RIGHTPOSITION})
 export const advancePosition = () => ({type:ActionType.ADVANCEPOSITION})
 export const dropPosition = () => ({type:ActionType.DROPPOSITION})
+export const changePosition = (position) => ({type:ActionType.CHANGE_POSITION,payload:position})
 export const updateMino = (mino) => ({type:ActionType.UPDATEMINO,payload:mino})
 export const updatePreBlock = (block) => ({type:ActionType.PREBLOCK,payload:block})
 export const resetPreBlock = () => ({type:ActionType.RESETPREBLOCK})

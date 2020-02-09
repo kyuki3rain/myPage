@@ -53,7 +53,7 @@ class Home extends React.Component {
                     <Text>優しさが足りないWeb謎もどきです。スマホでもできます。「Clear!」がでたらクリアです。</Text>
                     <MenuList onClick={this.navigate.bind(this,"cell")}>Life Game</MenuList>
                     <Text>ライフゲームができます。ボタンはいろいろ増やす予定。スマホだと見づらい。</Text>
-                    <MenuList onClick={this.navigate.bind(this,"tetrimino")}>テトリス</MenuList>
+                    <MenuList onClick={this.navigate.bind(this,"tetris")}>テトリス</MenuList>
                     <Text>開発中。スコアシステムと回転の優しさが足りない。</Text>
                     {/* <MenuList onClick={this.navigate.bind(this,"glitch")}>glitch</MenuList> */}
                 </ListParent>
