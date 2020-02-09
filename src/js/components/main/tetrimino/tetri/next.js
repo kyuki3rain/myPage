@@ -49,8 +49,8 @@ class Container extends React.Component {
         clearInterval(this.props.advanceId);
         this.props.setIntervalId(0);
         this.props.setAdvanceId(0);
-        console.log("clear "+ this.props.intervalId);
-        console.log("clear "+ this.props.advanceId);
+        // console.log("clear "+ this.props.intervalId);
+        // console.log("clear "+ this.props.advanceId);
     }
     returnColor(f){
         switch(f){

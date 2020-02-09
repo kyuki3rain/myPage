@@ -118,7 +118,8 @@ export default (state = initialStates, action) => {
         case ActionType.INITIALIZE: 
             let newMino = shaffle().concat(shaffle());
             // console.log(newMino,state.mino);
-            return {...state,gamePlay:0,
+            return {...state,
+                gamePlay:0,
                 map:tbl,
                 intervalId:0,
                 advanceId:0,

@@ -334,7 +334,7 @@ class Container extends React.Component {
                 f=0;
                 SRSPosition_x = this.props.position[0]+SRSCorrection[2*minoRotate-(t-1)/2][j][0];
                 SRSPosition_y = this.props.position[1]+SRSCorrection[2*minoRotate-(t-1)/2][j][1];
-                console.log(2*minoRotate-(t-1)/2,j,SRSCorrection[2*minoRotate+(t+1)/2][j]);
+                // console.log(2*minoRotate-(t-1)/2,j,SRSCorrection[2*minoRotate+(t+1)/2][j]);
                 for(let i=0;i<4;i++){
                     if(nextBlock[i][0]+SRSPosition_x>=20
                         ||nextBlock[i][0]+SRSPosition_x<0
@@ -516,8 +516,8 @@ class Container extends React.Component {
         let localAdvanceId = setInterval(this.time.bind(this), 1000);
         this.props.setIntervalId(localIntervalId);
         this.props.setAdvanceId(localAdvanceId);
-        console.log("start "+ localIntervalId);
-        console.log("start "+ localAdvanceId);
+        // console.log("start "+ localIntervalId);
+        // console.log("start "+ localAdvanceId);
     }
     stopGame(){
         this.props.makeGame();
@@ -525,21 +525,23 @@ class Container extends React.Component {
         let localAdvanceId = setInterval(this.time.bind(this), 1000);
         this.props.setIntervalId(localIntervalId);
         this.props.setAdvanceId(localAdvanceId);
-        console.log("start "+ localIntervalId);
-        console.log("start "+ localAdvanceId);
+        // console.log("start "+ localIntervalId);
+        // console.log("start "+ localAdvanceId);
     }
     pauseGame(){
         this.props.resetGame();
         clearInterval(this.props.intervalId);
         clearInterval(this.props.advanceId);
-        console.log("clear "+ this.props.intervalId);
-        console.log("clear "+ this.props.advanceId);
+        // console.log("clear "+ this.props.intervalId);
+        // console.log("clear "+ this.props.advanceId);
         this.props.setIntervalId(0);
         this.props.setAdvanceId(0);
     }
     keyCheck(e){
+        console.log(this.props.gamePlay);
         if(e.keyCode == 27){
-            this.pauseGame();
+            if(this.props.gamePlay==1)this.pauseGame();
+            else if(this.props.gamePlay==0)this.stopGame();
         }
         if(e.keyCode == 65){
             if(this.props.minoNum!=5)this.blockRotate(-1);
