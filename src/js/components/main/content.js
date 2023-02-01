@@ -8,7 +8,8 @@ import DicePage from "./nicePage/NicePage";
 import CellPage from "./cellPage/CellPage";
 import Maintain from "./maintain";
 import tetriPage from "./tetrimino/tetriPage";
-import maqualPage from "./maqual/root"
+import maqualPage from "./maqual/root";
+import reversePage from "./reverse/root";
 
 
 const Style = styled.div`
@@ -17,6 +18,8 @@ const Style = styled.div`
     box-sizing:border-box;
     padding:10vh 0 0;
     height:90vh;
+    z-index:-1;
+    pointer-events:none;
 `;
 
 
@@ -26,10 +29,11 @@ export default class Content extends React.Component {
             <Style>
                 <Route exact path="/" component={Home}></Route>
                 <Route path="/glitch" component={GritchPage}></Route>
-                <Route path="/game1" component={Maintain}></Route>
+                <Route path="/game1" component={DicePage}></Route>
                 <Route path="/cell" component={CellPage}></Route>
                 <Route path="/tetris" component={tetriPage}></Route>
-                <Route path="/maqual" component={maqualPage}></Route>
+                <Route path="/maquation" component={maqualPage}></Route>
+                <Route path="/reverse" component={reversePage}></Route>
             </Style>
         );
     }

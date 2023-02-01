@@ -15,14 +15,27 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = createStore(reducer,applyMiddleware(sagaMiddleware, createLogger()));
 sagaMiddleware.run(sagas);
 
+// export default class Container extends React.Component{
+//     render(){
+//         return(
+//             <Provider store={store}>
+//                 <StylesProvider injectFirst>
+//                     <Main></Main>
+//                 </StylesProvider>
+//             </Provider>
+//         );
+//     };
+// }
+
 export default class Container extends React.Component{
     render(){
         return(
-            <Provider store={store}>
-                <StylesProvider injectFirst>
-                    <Main></Main>
-                </StylesProvider>
-            </Provider>
+            <div>
+                <div>「mAquation」のプライバシーポリシー</div>
+                <div>・ストレージ：過去のスコアやアカウントデータを保存するために使用しています。</div>
+                <div>・広告用IDの使用：アプリ内広告（AdMob）で必要とされています。</div>
+                <div>「mAquation」のプライバシーポリシー</div>
+            </div>
         );
-    };
+    }
 }
